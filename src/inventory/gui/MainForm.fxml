@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane minHeight="440.0" minWidth="1030.0" prefHeight="440.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <GridPane prefHeight="400.0" prefWidth="839.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="361.0" minHeight="10.0" prefHeight="330.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="147.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label id="textInventoryTitle" text="Inventory Management System" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane layoutX="430.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Label id="titleParts" text="Parts" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="3.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="searchParts" layoutX="351.0" layoutY="4.0" promptText="Search by Part ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0" />
+                    <TableView id="tableViewParts" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
+                        <columns>
+                            <TableColumn minWidth="70.0" prefWidth="70.0" text="Part ID" />
+                            <TableColumn minWidth="150.0" prefWidth="150.0" text="Part Name" />
+                            <TableColumn minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
+                            <TableColumn minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
+                        </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                    </TableView>
+                  <ButtonBar id="barButtonParts" layoutX="14.0" layoutY="230.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="15.0">
+                    <buttons>
+                      <Button id="buttonPartsAdd" mnemonicParsing="false" text="Add" translateX="-25.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></Button>
+                        <Button id="buttonPartsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></Button>
+                        <Button id="buttonPartsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
+                    </buttons>
+                  </ButtonBar>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="52.0" prefWidth="495.0" GridPane.rowIndex="2" />
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label id="titleProducts" text="Products" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="3.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="searchProducts" promptText="Search by Product ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="3.0" />
+                  <TableView id="tableViewProducts" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                     <columns>
+                        <TableColumn minWidth="70.0" prefWidth="70.0" text="Product ID" />
+                        <TableColumn minWidth="150.0" prefWidth="150.0" text="Product Name" />
+                        <TableColumn minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
+                        <TableColumn minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <ButtonBar id="barButtonParts" layoutX="7.0" layoutY="251.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="30.0">
+                     <buttons>
+                        <Button id="buttonProductsAdd" mnemonicParsing="false" text="Add" translateX="-25.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button id="buttonProductsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button id="buttonProductsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="277.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Button id="buttonExit" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" text="Exit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children></AnchorPane>
+         </children>
+      </GridPane>
+    </children>
+</AnchorPane>
