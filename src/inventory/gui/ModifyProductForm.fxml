@@ -6,9 +6,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="inventory.gui.ModifyProductFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="540.0" maxWidth="820.0" minHeight="540.0" minWidth="820.0" prefHeight="540.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.gui.AddProductFormController">
+    <children>
+        <Label layoutX="43.0" layoutY="36.0" text="Add Product">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font></Label>
+        <TextField id="searchField_AddProductPart" layoutX="612.0" layoutY="14.0" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
+        <TableView id="tableView_AddProduct-PartData" layoutX="390.0" layoutY="49.0" prefHeight="164.0" prefWidth="392.0">
+            <columns>
+                <TableColumn prefWidth="50.0" resizable="false" text="Part ID" />
+                <TableColumn prefWidth="126.0" text="Part Name" />
+                <TableColumn prefWidth="104.0" resizable="false" text="Inventory Level" />
+                <TableColumn prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Button layoutX="729.0" layoutY="227.0" mnemonicParsing="false" text="Add" />
+        <TableView id="tableView_AddProduct-AssociatedPart" layoutX="390.0" layoutY="279.0" prefHeight="164.0" prefWidth="392.0">
+            <columns>
+                <TableColumn prefWidth="50.0" resizable="false" text="Part ID" />
+                <TableColumn prefWidth="126.0" text="Part Name" />
+                <TableColumn prefWidth="104.0" resizable="false" text="Inventory Level" />
+                <TableColumn prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <Button layoutX="623.0" layoutY="454.0" mnemonicParsing="false" text="Remove Associated Part" />
+        <Button layoutX="623.0" layoutY="491.0" mnemonicParsing="false" text="Save" />
+        <Button layoutX="715.0" layoutY="491.0" mnemonicParsing="false" text="Cancel" />
+        <Label layoutX="53.0" layoutY="120.0" text="ID" AnchorPane.leftAnchor="70.0" />
+        <Label layoutX="53.0" layoutY="170.0" text="Name" AnchorPane.leftAnchor="70.0" />
+        <Label layoutX="51.0" layoutY="220.0" text="Inv" AnchorPane.leftAnchor="70.0" />
+        <Label layoutX="45.0" layoutY="270.0" text="Price" AnchorPane.leftAnchor="70.0" />
+        <Label layoutX="51.0" layoutY="320.0" text="Max" AnchorPane.leftAnchor="70.0" />
+        <Label layoutX="220.0" layoutY="320.0" text="Min" />
+        <TextField layoutX="113.0" layoutY="166.0" prefHeight="25.0" prefWidth="130.0" />
+        <TextField disable="true" layoutX="113.0" layoutY="119.0" prefHeight="25.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
+        <TextField layoutX="113.0" layoutY="216.0" prefHeight="25.0" prefWidth="80.0" />
+        <TextField layoutX="113.0" layoutY="267.0" prefHeight="25.0" prefWidth="80.0" />
+        <TextField layoutX="113.0" layoutY="316.0" prefHeight="25.0" prefWidth="80.0" />
+        <TextField layoutX="258.0" layoutY="316.0" prefHeight="25.0" prefWidth="80.0" />
+    </children>
 </AnchorPane>

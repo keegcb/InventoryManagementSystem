@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="inventory.gui.AddProductFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="540.0" maxWidth="820.0" minHeight="540.0" minWidth="820.0" prefHeight="540.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.gui.AddProductFormController">
+   <children>
+      <Label layoutX="43.0" layoutY="36.0" text="Add Product">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <TextField id="searchField_AddProductPart" layoutX="612.0" layoutY="14.0" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
+      <TableView id="tableView_AddProductPartData" layoutX="390.0" layoutY="49.0" prefHeight="164.0" prefWidth="392.0">
+        <columns>
+          <TableColumn id="column_PartID" prefWidth="50.0" resizable="false" text="Part ID" />
+          <TableColumn id="column_PartName" prefWidth="126.0" text="Part Name" />
+            <TableColumn id="column_PartInventory" prefWidth="104.0" resizable="false" text="Inventory Level" />
+            <TableColumn id="column_PartPrice" prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button id="button_AddProductPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" text="Add" />
+      <TableView id="tableView_AddProductAssociatedPart" layoutX="390.0" layoutY="279.0" prefHeight="164.0" prefWidth="392.0">
+         <columns>
+            <TableColumn id="column_AssociatedPartID" prefWidth="50.0" resizable="false" text="Part ID" />
+            <TableColumn id="column_AssociatedPartName" prefWidth="126.0" text="Part Name" />
+            <TableColumn id="column_AssociatedPartInventory" prefWidth="104.0" resizable="false" text="Inventory Level" />
+            <TableColumn id="column_AssociatedPartPrice" prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button id="button_RemoveProductPart" layoutX="623.0" layoutY="454.0" mnemonicParsing="false" text="Remove Associated Part" />
+      <Button id="button_AddProduct" layoutX="623.0" layoutY="491.0" mnemonicParsing="false" text="Save" />
+      <Button id="button_AddProductCancel" layoutX="715.0" layoutY="491.0" mnemonicParsing="false" text="Cancel" />
+      <Label layoutX="53.0" layoutY="120.0" text="ID" AnchorPane.leftAnchor="70.0" />
+      <Label layoutX="53.0" layoutY="170.0" text="Name" AnchorPane.leftAnchor="70.0" />
+      <Label layoutX="51.0" layoutY="220.0" text="Inv" AnchorPane.leftAnchor="70.0" />
+      <Label layoutX="45.0" layoutY="270.0" text="Price" AnchorPane.leftAnchor="70.0" />
+      <Label layoutX="51.0" layoutY="320.0" text="Max" AnchorPane.leftAnchor="70.0" />
+      <Label layoutX="220.0" layoutY="320.0" text="Min" />
+      <TextField id="text_AddProductName" layoutX="113.0" layoutY="166.0" prefHeight="25.0" prefWidth="130.0" />
+      <TextField id="text_AddProductID" disable="true" layoutX="113.0" layoutY="119.0" prefHeight="25.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
+      <TextField id="text_AddProductInv" layoutX="113.0" layoutY="216.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField id="text_AddProductPrice" layoutX="113.0" layoutY="267.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField id="text_AddProductMax" layoutX="113.0" layoutY="316.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField id="text_ProductMin" layoutX="258.0" layoutY="316.0" prefHeight="25.0" prefWidth="80.0" />
+   </children>
 </AnchorPane>

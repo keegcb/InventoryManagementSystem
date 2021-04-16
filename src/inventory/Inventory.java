@@ -3,10 +3,16 @@ package inventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.security.SecureRandom;
+import java.util.Locale;
+import java.util.Random;
+
 public class Inventory {
 
     private ObservableList<Part> allParts = FXCollections.observableArrayList();
     private ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static int partIDNumber = 100000;
+    private static int productIDNumber = 1000;
 
     public void addPart(Part newPart){
         this.allParts.add(newPart);
@@ -55,30 +61,68 @@ public class Inventory {
     }
 
     public ObservableList<Part> lookupPart(String partName) {
+        boolean partMatch = false;
 
+        for (Part currentPart : allParts) {
+            if (currentPart.getName().equalsIgnoreCase(partName)) {
+                partMatch = true;
+                break;
+            }
+        }
+        if (partMatch) {
+            return allParts;
+        } else {
+            System.out.printf("A part with the name %s could not be found in the list.\n", partName);
+            return null;
+        }
     }
 
     public ObservableList<Product> lookupProduct(String productName) {
+        boolean productMatch = false;
 
+        for (Product currentProduct : allProducts) {
+            if (currentProduct.getName().equalsIgnoreCase(productName)) {
+                productMatch = true;
+                break;
+            }
+        }
+        if (productMatch) {
+            return allProducts;
+        } else {
+            System.out.printf("A Product with the name %s could not be found in the list.\n", productName);
+            return null;
+        }
     }
 
     public void updatePart(int index, Part selectedPart){
-
+        allParts.set(index, selectedPart);
     }
 
     public void updateProduct(int index, Product newProduct){
-
+        allProducts.set(index, newProduct);
     }
 
     public boolean deletePart(Part selectedPart){
         boolean isDeleted = false;
-        //add logic
+        for (Part currentPart : allParts) {
+            if (currentPart.equals(selectedPart)) {
+                allParts.remove(selectedPart);
+                isDeleted = true;
+                break;
+            }
+        }
         return isDeleted;
     }
 
     public boolean deleteProduct(Product selectedProduct){
         boolean isDeleted = false;
-        //add logic
+        for (Product currentProduct : allProducts){
+            if (currentProduct.equals(selectedProduct)){
+                allProducts.remove(selectedProduct);
+                isDeleted = true;
+                break;
+            }
+        }
         return isDeleted;
     }
 
@@ -89,6 +133,14 @@ public class Inventory {
     public ObservableList<Product> getAllProducts() {
         return allProducts;
     }
-}
 
+    public static int nextPartID(){
+        partIDNumber++;
+        return partIDNumber;
+    }
+
+    public int nextProductID(){
+        productIDNumber++;
+        return productIDNumber;
+    }
 }
