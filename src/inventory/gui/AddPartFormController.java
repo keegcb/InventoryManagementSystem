@@ -46,6 +46,8 @@ public class AddPartFormController {
         toggleGroup_AddPart = new ToggleGroup();
         this.radio_AddInHouse.setToggleGroup(toggleGroup_AddPart);
         this.radio_AddOutsourced.setToggleGroup(toggleGroup_AddPart);
+        radio_AddInHouse.setSelected(true);
+        addPartToggle();
         addPartID = Inventory.nextPartID();
         textField_AddPartID.setText(Integer.toString(addPartID));
     }
@@ -58,7 +60,6 @@ public class AddPartFormController {
             this. label_AddPartMachineCompany.setText("Company Name");
         }
     }
-
 
 
 }
