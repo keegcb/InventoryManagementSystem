@@ -1,5 +1,6 @@
 package inventory;
 
+import inventory.gui.AddPartFormController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +41,8 @@ public class Main extends Application {
 
         Scene partScene = new Scene(addPartWindow);
         addPartStage.setScene(partScene);
+        AddPartFormController stageControl = loader.getController();
+        stageControl.createStage(addPartStage);
         addPartStage.showAndWait();
     }
 

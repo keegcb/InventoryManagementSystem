@@ -1,22 +1,27 @@
 package inventory.gui;
 
+import inventory.InHouse;
 import inventory.Inventory;
+import inventory.Outsourced;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
+
 
 public class AddPartFormController {
 
     private int addPartID;
     private String addPartName;
-    private int addPartInv;
     private double addPartPrice;
-    private int addPartMax;
+    private int addPartInv;
     private int addPartMin;
+    private int addPartMax;
     private int addMachineID;
     private String addCompany;
+    private Stage partStage;
 
     @FXML
     private RadioButton radio_AddInHouse;
@@ -52,6 +57,10 @@ public class AddPartFormController {
         textField_AddPartID.setText(Integer.toString(addPartID));
     }
 
+    public void createStage (Stage partStage){
+        this.partStage = partStage;
+    }
+
     public void addPartToggle(){
         if (toggleGroup_AddPart.equals(radio_AddInHouse)){
             this.label_AddPartMachineCompany.setText("Machine ID");
@@ -61,5 +70,26 @@ public class AddPartFormController {
         }
     }
 
+    @FXML
+    private void handleSave(){
+        addPartName = textField_AddPartName.getText();
+        addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
+        addPartInv = Integer.parseInt(textField_AddPartInv.getText());
+        addPartMin = Integer.parseInt(textField_AddPartMin.getText());
+        addPartMax = Integer.parseInt(textField_AddPartMax.getText());
+        if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddInHouse)){
+            addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
+            InHouse inHouse = new InHouse
+                    (addPartID, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
+            Inventory.addPart(inHouse);
+        }
+        if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddOutsourced)){
+            addCompany = textField_AddPartMachineCompany.getText();
+            Outsourced outsourced = new Outsourced
+                    (addPartID, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
+            Inventory.addPart(outsourced);
+        }
+        partStage.close();
+    }
 
 }
