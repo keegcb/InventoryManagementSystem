@@ -23,7 +23,7 @@
       <Label id="label_AddPartMax" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="50.0" layoutY="240.0" nodeOrientation="RIGHT_TO_LEFT" text="Max" textAlignment="RIGHT" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="240.0" />
       <Label id="label_AddPartMin" layoutX="230.0" layoutY="240.0" text="Min" AnchorPane.bottomAnchor="243.0" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="240.0" />
       <Label id="label_AddPartMachineCompany" fx:id="label_AddPartMachineCompany" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="50.0" layoutY="270.0" nodeOrientation="RIGHT_TO_LEFT" text="Machine ID" textAlignment="RIGHT" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="270.0" />
-      <TextField id="textField_AddPartID" fx:id="textField_AddPartID" disable="true" editable="false" layoutX="125.0" layoutY="116.0" prefHeight="25.0" prefWidth="115.0" promptText="Auto Generated" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="116.0">
+      <TextField id="textField_AddPartID" fx:id="textField_AddPartId" disable="true" editable="false" layoutX="125.0" layoutY="116.0" prefHeight="25.0" prefWidth="115.0" promptText="Auto Generated" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="116.0">
          <font>
             <Font size="10.0" />
          </font>
@@ -34,7 +34,7 @@
       <TextField id="textField_AddPartMax" fx:id="textField_AddPartMax" layoutX="125.0" layoutY="236.0" prefHeight="25.0" prefWidth="115.0" AnchorPane.bottomAnchor="239.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="236.0" />
       <TextField id="textField_AddPartMin" fx:id="textField_AddPartMin" layoutX="270.0" layoutY="236.0" prefHeight="25.0" prefWidth="115.0" AnchorPane.bottomAnchor="239.0" AnchorPane.leftAnchor="265.0" AnchorPane.topAnchor="236.0" />
       <TextField id="textField_AddPartMachineCompany" fx:id="textField_AddPartMachineCompany" layoutX="125.0" layoutY="266.0" prefHeight="25.0" prefWidth="115.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="266.0" />
-      <Button id="button_AddPartSave" layoutX="174.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleSave" text="Save" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="339.0" />
-      <Button id="button_AddPartCancel" layoutX="265.0" layoutY="339.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="265.0" AnchorPane.topAnchor="339.0" />
+      <Button id="button_AddPartSave" fx:id="button_SavePart" layoutX="174.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleAddSave" text="Save" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="339.0" />
+      <Button id="button_AddPartCancel" fx:id="button_Cancel" layoutX="265.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="265.0" AnchorPane.topAnchor="339.0" />
    </children>
 </AnchorPane>

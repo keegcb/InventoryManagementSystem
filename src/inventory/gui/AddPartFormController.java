@@ -4,16 +4,12 @@ import inventory.InHouse;
 import inventory.Inventory;
 import inventory.Outsourced;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 
 public class AddPartFormController {
 
-    private int addPartID;
+    private int addPartId;
     private String addPartName;
     private double addPartPrice;
     private int addPartInv;
@@ -30,7 +26,7 @@ public class AddPartFormController {
     @FXML
     private ToggleGroup toggleGroup_AddPart;
     @FXML
-    private TextField textField_AddPartID;
+    private TextField textField_AddPartId;
     @FXML
     private TextField textField_AddPartName;
     @FXML
@@ -45,6 +41,10 @@ public class AddPartFormController {
     private Label label_AddPartMachineCompany;
     @FXML
     private TextField textField_AddPartMachineCompany;
+    @FXML
+    private Button button_SavePart;
+    @FXML
+    private Button button_Cancel;
 
     @FXML
     private void initialize(){
@@ -53,25 +53,25 @@ public class AddPartFormController {
         this.radio_AddOutsourced.setToggleGroup(toggleGroup_AddPart);
         radio_AddInHouse.setSelected(true);
         addPartToggle();
-        addPartID = Inventory.nextPartID();
-        textField_AddPartID.setText(Integer.toString(addPartID));
+        addPartId = Inventory.nextPartID();
+        textField_AddPartId.setText(Integer.toString(addPartId));
     }
 
-    public void createStage (Stage partStage){
+    public void createAddPartStage(Stage partStage){
         this.partStage = partStage;
     }
 
     public void addPartToggle(){
-        if (toggleGroup_AddPart.equals(radio_AddInHouse)){
+        if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddInHouse)){
             this.label_AddPartMachineCompany.setText("Machine ID");
         }
-        if (toggleGroup_AddPart.equals(radio_AddOutsourced)){
+        if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddOutsourced)){
             this. label_AddPartMachineCompany.setText("Company Name");
         }
     }
 
     @FXML
-    private void handleSave(){
+    private void handleAddSave(){
         addPartName = textField_AddPartName.getText();
         addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
         addPartInv = Integer.parseInt(textField_AddPartInv.getText());
@@ -80,16 +80,20 @@ public class AddPartFormController {
         if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddInHouse)){
             addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
             InHouse inHouse = new InHouse
-                    (addPartID, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
+                    (addPartId, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
             Inventory.addPart(inHouse);
         }
         if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddOutsourced)){
             addCompany = textField_AddPartMachineCompany.getText();
             Outsourced outsourced = new Outsourced
-                    (addPartID, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
+                    (addPartId, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
             Inventory.addPart(outsourced);
         }
         partStage.close();
     }
 
+    @FXML
+    public void handleCancel(){
+        partStage.close();
+    }
 }

@@ -12,43 +12,43 @@ public class AddProductFormController {
     @FXML
     private TextField searchField_AddProductPart;
     @FXML
-    private TableView<Part> tableView_AddProductPartData;
+    private TableView<Part> tableView_PartData;
     @FXML
-    private TableColumn<Part, Integer> column_PartID;
+    private TableColumn<Part, Integer> col_PartID;
     @FXML
-    private TableColumn<Part, String> column_PartName;
+    private TableColumn<Part, String> col_PartName;
     @FXML
-    private TableColumn<Part, Integer> column_PartInventory;
+    private TableColumn<Part, Integer> col_PartInv;
     @FXML
-    private TableColumn<Part, Double> column_PartPrice;
+    private TableColumn<Part, Double> col_PartPrice;
     @FXML
-    private Button button_AddProductPart;
+    private Button button_AddPart;
     @FXML
-    private TableView<Part> tableView_AddProductAssociatedPart;
+    private TableView<Part> tableView_AssociatedPart;
     @FXML
-    private TableColumn<Part, Integer> column_AssociatedPartID;
+    private TableColumn<Part, Integer> col_AssPartID;
     @FXML
-    private TableColumn<Part, String> column_AssociatedPartName;
+    private TableColumn<Part, String> col_AssPartName;
     @FXML
-    private TableColumn<Part, Integer> column_AssociatedPartInventory;
+    private TableColumn<Part, Integer> col_AssPartInv;
     @FXML
-    private TableColumn<Part, Double> column_AssociatedPartPrice;
+    private TableColumn<Part, Double> col_AssPartPrice;
     @FXML
-    private Button button_RemoveProductPart;
+    private Button button_RemovePart;
     @FXML
     private Button button_AddProduct;
     @FXML
-    private Button button_AddProductCancel;
+    private Button button_Cancel;
     @FXML
-    private TextField text_AddProductID;
+    private TextField text_ProductID;
     @FXML
-    private TextField text_AddProductName;
+    private TextField text_ProductName;
     @FXML
-    private TextField text_AddProductInv;
+    private TextField text_ProductInv;
     @FXML
-    private TextField text_AddProductPrice;
+    private TextField text_ProductPrice;
     @FXML
-    private TextField text_AddProductMax;
+    private TextField text_ProductMax;
     @FXML
     private TextField text_ProductMin;
 

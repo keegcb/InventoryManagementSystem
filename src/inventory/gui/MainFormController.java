@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 
 public class MainFormController {
 
+    private static int index;
+
     @FXML
     private TextField searchParts;
     @FXML
@@ -49,4 +51,7 @@ public class MainFormController {
     @FXML
     private Button button_Exit;
 
+    public static int getIndex() {
+        return index;
+    }
 }

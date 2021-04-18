@@ -1,9 +1,9 @@
 package inventory;
 
 import inventory.gui.AddPartFormController;
+import inventory.gui.ModifyPartFormController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -15,7 +15,6 @@ import java.util.Objects;
 public class Main extends Application {
 
     private Stage mainStage;
-    private AnchorPane mainWindow;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -23,7 +22,7 @@ public class Main extends Application {
         this.mainStage.setTitle("Inventory Management System");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/MainForm.fxml")));
-        mainWindow = loader.load();
+        AnchorPane mainWindow = loader.load();
         Scene mainScene = new Scene(mainWindow);
         this.mainStage.setScene(mainScene);
         this.mainStage.show();
@@ -42,8 +41,25 @@ public class Main extends Application {
         Scene partScene = new Scene(addPartWindow);
         addPartStage.setScene(partScene);
         AddPartFormController stageControl = loader.getController();
-        stageControl.createStage(addPartStage);
+        stageControl.createAddPartStage(addPartStage);
         addPartStage.showAndWait();
+    }
+
+    public void openModParts() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/ModifyPartForm.fxml")));
+        AnchorPane modPartWindow = loader.load();
+
+        Stage modPartStage = new Stage();
+        modPartStage.setTitle("Modify Part");
+        modPartStage.initModality(Modality.WINDOW_MODAL);
+        modPartStage.initOwner(mainStage);
+
+        Scene partScene = new Scene(modPartWindow);
+        modPartStage.setScene(partScene);
+        ModifyPartFormController stageControl = loader.getController();
+        stageControl.createModPartStage(modPartStage);
+        modPartStage.showAndWait();
     }
 
     public static void main(String[] args) {
