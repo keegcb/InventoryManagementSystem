@@ -71,7 +71,7 @@ public class AddPartFormController {
     }
 
     @FXML
-    private void handleAddSave(){
+    private void handleSave(){
         addPartName = textField_AddPartName.getText();
         addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
         addPartInv = Integer.parseInt(textField_AddPartInv.getText());

@@ -58,9 +58,10 @@ public class Inventory {
 
     public static ObservableList<Part> lookupPart(String partName) {
         boolean partMatch = false;
+        int index = 0;
 
         for (Part currentPart : allParts) {
-            if (currentPart.getName().equalsIgnoreCase(partName)) {
+            if (currentPart.getName().contentEquals(partName)) {
                 partMatch = true;
                 break;
             }

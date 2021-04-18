@@ -10,10 +10,10 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <TextField id="searchField_AddProductPart" fx:id="searchField_AddProductPart" layoutX="612.0" layoutY="14.0" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
+      <TextField id="searchField_AddProductPart" fx:id="searchField_Parts" layoutX="612.0" layoutY="14.0" onAction="#searchParts" onInputMethodTextChanged="#searchParts" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
       <TableView id="tableView_AddProductPartData" fx:id="tableView_PartData" layoutX="390.0" layoutY="49.0" prefHeight="164.0" prefWidth="392.0">
         <columns>
-          <TableColumn id="column_PartID" fx:id="col_PartID" prefWidth="50.0" resizable="false" text="Part ID" />
+          <TableColumn id="column_PartID" fx:id="col_PartId" prefWidth="50.0" resizable="false" text="Part ID" />
           <TableColumn id="column_PartName" fx:id="col_PartName" prefWidth="126.0" text="Part Name" />
             <TableColumn id="column_PartInventory" fx:id="col_PartInv" prefWidth="104.0" resizable="false" text="Inventory Level" />
             <TableColumn id="column_PartPrice" fx:id="col_PartPrice" prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
@@ -25,7 +25,7 @@
       <Button id="button_AddProductPart" fx:id="button_AddPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" text="Add" />
       <TableView id="tableView_AddProductAssociatedPart" fx:id="tableView_AssociatedPart" layoutX="390.0" layoutY="279.0" prefHeight="164.0" prefWidth="392.0">
          <columns>
-            <TableColumn id="column_AssociatedPartID" fx:id="col_AssPartID" prefWidth="50.0" resizable="false" text="Part ID" />
+            <TableColumn id="column_AssociatedPartID" fx:id="col_AssPartId" prefWidth="50.0" resizable="false" text="Part ID" />
             <TableColumn id="column_AssociatedPartName" fx:id="col_AssPartName" prefWidth="126.0" text="Part Name" />
             <TableColumn id="column_AssociatedPartInventory" fx:id="col_AssPartInv" prefWidth="104.0" resizable="false" text="Inventory Level" />
             <TableColumn id="column_AssociatedPartPrice" fx:id="col_AssPartPrice" prefWidth="156.0" resizable="false" text="Price / Cost per Unit" />
@@ -44,7 +44,7 @@
       <Label layoutX="51.0" layoutY="320.0" text="Max" AnchorPane.leftAnchor="70.0" />
       <Label layoutX="220.0" layoutY="320.0" text="Min" />
       <TextField id="text_AddProductName" fx:id="text_ProductName" layoutX="113.0" layoutY="166.0" prefHeight="25.0" prefWidth="130.0" />
-      <TextField id="text_AddProductID" fx:id="text_ProductID" disable="true" layoutX="113.0" layoutY="119.0" prefHeight="25.0" prefWidth="130.0" promptText="Auto Gen - Disabled" />
+      <TextField id="text_AddProductID" fx:id="text_ProductId" disable="true" layoutX="113.0" layoutY="119.0" prefHeight="25.0" prefWidth="130.0" promptText="Auto Generated" />
       <TextField id="text_AddProductInv" fx:id="text_ProductInv" layoutX="113.0" layoutY="216.0" prefHeight="25.0" prefWidth="80.0" />
       <TextField id="text_AddProductPrice" fx:id="text_ProductPrice" layoutX="113.0" layoutY="267.0" prefHeight="25.0" prefWidth="80.0" />
       <TextField id="text_AddProductMax" fx:id="text_ProductMax" layoutX="113.0" layoutY="316.0" prefHeight="25.0" prefWidth="80.0" />

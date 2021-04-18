@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Main extends Application {
+public class InventoryManagementSystem extends Application {
 
     private Stage mainStage;
 
@@ -28,21 +28,29 @@ public class Main extends Application {
         this.mainStage.show();
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     public void openAddParts() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/AddPartForm.fxml")));
-        AnchorPane addPartWindow = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/AddPartForm.fxml")));
+            AnchorPane addPartWindow = loader.load();
 
-        Stage addPartStage = new Stage();
-        addPartStage.setTitle("Add Part");
-        addPartStage.initModality(Modality.WINDOW_MODAL);
-        addPartStage.initOwner(mainStage);
+            Stage addPartStage = new Stage();
+            addPartStage.setTitle("Add Part");
+            addPartStage.initModality(Modality.WINDOW_MODAL);
+            addPartStage.initOwner(mainStage);
 
-        Scene partScene = new Scene(addPartWindow);
-        addPartStage.setScene(partScene);
-        AddPartFormController stageControl = loader.getController();
-        stageControl.createAddPartStage(addPartStage);
-        addPartStage.showAndWait();
+            Scene partScene = new Scene(addPartWindow);
+            addPartStage.setScene(partScene);
+            AddPartFormController stageControl = loader.getController();
+            stageControl.createAddPartStage(addPartStage);
+            addPartStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void openModParts() throws IOException {
@@ -60,9 +68,5 @@ public class Main extends Application {
         ModifyPartFormController stageControl = loader.getController();
         stageControl.createModPartStage(modPartStage);
         modPartStage.showAndWait();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

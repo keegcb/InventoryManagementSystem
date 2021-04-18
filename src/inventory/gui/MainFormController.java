@@ -2,11 +2,11 @@ package inventory.gui;
 
 import inventory.Part;
 import inventory.Product;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.io.IOException;
 
 public class MainFormController {
 
@@ -53,5 +53,31 @@ public class MainFormController {
 
     public static int getIndex() {
         return index;
+    }
+
+
+    public static void displayMessage(){
+        String methodName = null;
+        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
+        for (int i=0; i< stacktrace.length; i++){
+            if (stacktrace[i].getMethodName().equals("displayMessage")){
+                methodName = stacktrace[i+1].getMethodName();
+                break;
+            }
+        }
+        if (methodName.equals("searchParts")){
+            Alert noMatch = new Alert(Alert.AlertType.ERROR);
+            noMatch.setTitle("Error");
+            noMatch.setHeaderText("No Matches");
+            noMatch.setContentText("A part could not be found matching the ID or Name provided.\nPlease make sure you have entered a valid Part ID or Name.");
+            noMatch.showAndWait();
+        }
+        if (methodName.equals("deletePart")){
+            Alert delete = new Alert(Alert.AlertType.INFORMATION);
+            delete.setTitle("Notification");
+            delete.setHeaderText("Part Deleted");
+            delete.setContentText("The selected part has been removed from the inventory parts list");
+            delete.showAndWait();
+        }
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="440.0" minWidth="1030.0" prefHeight="440.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="440.0" minWidth="1030.0" prefHeight="440.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.gui.MainFormController">
     <children>
       <GridPane prefHeight="400.0" prefWidth="839.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -33,13 +33,13 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="searchParts" layoutX="351.0" layoutY="4.0" promptText="Search by Part ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0" />
-                    <TableView id="tableView_Parts" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
+                  <TextField id="searchParts" fx:id="searchParts" layoutX="351.0" layoutY="4.0" promptText="Search by Part ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0" />
+                    <TableView id="tableView_Parts" fx:id="tableView_Parts" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                         <columns>
-                            <TableColumn id="col_PartID" minWidth="70.0" prefWidth="70.0" text="Part ID" />
-                            <TableColumn id="col_PartName" minWidth="150.0" prefWidth="150.0" text="Part Name" />
-                            <TableColumn id="col_PartInv" minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
-                            <TableColumn id="col_PartPrice" minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
+                            <TableColumn id="col_PartID" fx:id="col_PartID" minWidth="70.0" prefWidth="70.0" text="Part ID" />
+                            <TableColumn id="col_PartName" fx:id="col_PartName" minWidth="150.0" prefWidth="150.0" text="Part Name" />
+                            <TableColumn id="col_PartInv" fx:id="col_PartInv" minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
+                            <TableColumn id="col_PartPrice" fx:id="col_PartPrice" minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
                         </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -47,15 +47,15 @@
                     </TableView>
                   <ButtonBar id="barButtonParts" layoutX="14.0" layoutY="230.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="15.0">
                     <buttons>
-                      <Button id="button_PartsAdd" mnemonicParsing="false" text="Add" translateX="-25.0">
+                      <Button id="button_PartsAdd" fx:id="button_PartsAdd" mnemonicParsing="false" onAction="#handleAddPart" text="Add" translateX="-25.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets></Button>
-                        <Button id="button_PartsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
+                        <Button id="button_PartsModify" fx:id="button_PartsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets></Button>
-                        <Button id="button_PartsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
+                        <Button id="button_PartsDelete" fx:id="button_PartsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
                     </buttons>
                   </ButtonBar>
                </children></AnchorPane>
@@ -68,13 +68,13 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField id="searchProducts" promptText="Search by Product ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="3.0" />
-                  <TableView id="tableView_Products" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                  <TextField id="searchProducts" fx:id="searchProducts" promptText="Search by Product ID or Name" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="3.0" />
+                  <TableView id="tableView_Products" fx:id="tableView_Products" prefHeight="200.0" prefWidth="473.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
                      <columns>
-                        <TableColumn id="col_ProductID" minWidth="70.0" prefWidth="70.0" text="Product ID" />
-                        <TableColumn id="col_ProductName" minWidth="150.0" prefWidth="150.0" text="Product Name" />
-                        <TableColumn id="col_ProductInv" minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
-                        <TableColumn id="col_ProductPrice" minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
+                        <TableColumn id="col_ProductID" fx:id="col_ProductID" minWidth="70.0" prefWidth="70.0" text="Product ID" />
+                        <TableColumn id="col_ProductName" fx:id="col_ProductName" minWidth="150.0" prefWidth="150.0" text="Product Name" />
+                        <TableColumn id="col_ProductInv" fx:id="col_ProductInv" minWidth="92.0" prefWidth="92.0" text="Inventory Level" />
+                        <TableColumn id="col_ProductPrice" fx:id="col_ProductPrice" minWidth="160.0" prefWidth="160.0" text="Price/Cost per Unit" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -82,24 +82,24 @@
                   </TableView>
                   <ButtonBar id="barButtonParts" layoutX="7.0" layoutY="251.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="473.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="30.0">
                      <buttons>
-                        <Button id="button_ProductsAdd" mnemonicParsing="false" text="Add" translateX="-25.0">
+                        <Button id="button_ProductsAdd" fx:id="button_ProductsAdd" mnemonicParsing="false" text="Add" translateX="-25.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </Button>
-                        <Button id="button_ProductsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
+                        <Button id="button_ProductsModify" fx:id="button_ProductsModify" mnemonicParsing="false" text="Modify" translateX="-25.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </Button>
-                        <Button id="button_ProductsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
+                        <Button id="button_ProductsDelete" fx:id="button_ProductsDelete" mnemonicParsing="false" text="Delete" translateX="-10.0" />
                      </buttons>
                   </ButtonBar>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="277.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button id="button_Exit" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" text="Exit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Button id="button_Exit" fx:id="button_Exit" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" text="Exit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children></AnchorPane>
          </children>
       </GridPane>
