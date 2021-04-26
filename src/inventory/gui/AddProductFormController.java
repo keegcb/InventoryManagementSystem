@@ -10,6 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Optional;
+
 public class AddProductFormController {
 
     private int proId;
@@ -65,6 +68,8 @@ public class AddProductFormController {
     @FXML
     private TextField text_ProductMin;
 
+    public void createAddProduct(Stage addProductStage) {this.proStage = addProductStage; }
+
     @FXML
     private void initialize(){
         text_ProductId.setText(Integer.toString(Inventory.nextProductID()));
@@ -75,10 +80,16 @@ public class AddProductFormController {
         col_PartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         tableView_PartData.setItems(Inventory.getAllParts());
+
+        col_AssPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_AssPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_AssPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        col_AssPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
     }
 
     @FXML
-    private void searchParts(){
+    private void handleProSearchPart(){
         if (searchField_Parts.getText().isEmpty()){
             tableView_PartData.setItems(Inventory.getAllParts());
         } else {
@@ -101,4 +112,28 @@ public class AddProductFormController {
         }
     }
 
+    @FXML
+    private void handleProAddPart(){
+        Part selectedPart = tableView_PartData.getSelectionModel().getSelectedItem();
+        associatedPart.add(selectedPart);
+        tableView_AssociatedPart.setItems(associatedPart);
+    }
+
+    @FXML
+    private void handleDeleteAssPart() throws IOException{
+        Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+        if (selectedPart != null){
+            Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            deleteAlert.setTitle("Delete Associated Part?");
+            deleteAlert.setHeaderText("You are about to remove the part " + selectedPart.getName() + (" from the list of associated parts.\n" +
+                    "If you would like to proceed, click OK."));
+            Optional<ButtonType> selected = deleteAlert.showAndWait();
+            if (selected.get() == ButtonType.OK){
+                associatedPart.remove(selectedPart);
+                tableView_AssociatedPart.setItems(associatedPart);
+            } else {
+                deleteAlert.close();
+            }
+        }
+    }
 }

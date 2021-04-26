@@ -1,7 +1,6 @@
 package inventory;
 
-import inventory.gui.AddPartFormController;
-import inventory.gui.ModifyPartFormController;
+import inventory.gui.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,28 +13,28 @@ import java.util.Objects;
 
 public class InventoryManagementSystem extends Application {
 
-    private Stage mainStage;
+    private static Stage mainStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        this.mainStage = primaryStage;
-        this.mainStage.setTitle("Inventory Management System");
+        mainStage = primaryStage;
+        mainStage.setTitle("Inventory Management System");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/MainForm.fxml")));
         AnchorPane mainWindow = loader.load();
         Scene mainScene = new Scene(mainWindow);
-        this.mainStage.setScene(mainScene);
-        this.mainStage.show();
+        mainStage.setScene(mainScene);
+        mainStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void openAddParts() throws IOException {
+    public static void openAddParts() throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/AddPartForm.fxml")));
+            loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/AddPartForm.fxml")));
             AnchorPane addPartWindow = loader.load();
 
             Stage addPartStage = new Stage();
@@ -53,20 +52,68 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
-    public void openModParts() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Objects.requireNonNull(getClass().getResource("/inventory/gui/ModifyPartForm.fxml")));
-        AnchorPane modPartWindow = loader.load();
+    public static void openModParts(Part modPart) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/ModifyPartForm.fxml")));
+            AnchorPane modPartWindow = loader.load();
 
-        Stage modPartStage = new Stage();
-        modPartStage.setTitle("Modify Part");
-        modPartStage.initModality(Modality.WINDOW_MODAL);
-        modPartStage.initOwner(mainStage);
+            Stage modPartStage = new Stage();
+            modPartStage.setTitle("Modify Part");
+            modPartStage.initModality(Modality.WINDOW_MODAL);
+            modPartStage.initOwner(mainStage);
 
-        Scene partScene = new Scene(modPartWindow);
-        modPartStage.setScene(partScene);
-        ModifyPartFormController stageControl = loader.getController();
-        stageControl.createModPartStage(modPartStage);
-        modPartStage.showAndWait();
+            Scene partScene = new Scene(modPartWindow);
+            modPartStage.setScene(partScene);
+            ModifyPartFormController stageControl = loader.getController();
+            stageControl.createModPartStage(modPartStage);
+            stageControl.setModPart(modPart);
+            modPartStage.showAndWait();
+        } catch (IOException e){
+            MainFormController.displayMessage();
+        }
+    }
+
+    public static void openAddPro() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/AddProductForm.fxml")));
+            AnchorPane addProductWindow = loader.load();
+
+            Stage addProductStage = new Stage();
+            addProductStage.setTitle("Add Product");
+            addProductStage.initModality(Modality.WINDOW_MODAL);
+            addProductStage.initOwner(mainStage);
+
+            Scene productScene = new Scene(addProductWindow);
+            addProductStage.setScene(productScene);
+            AddProductFormController stageControl = loader.getController();
+            stageControl.createAddProduct(addProductStage);
+            addProductStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void openModPro(Product modPro) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/ModifyProductForm.fxml")));
+            AnchorPane modProductWindow = loader.load();
+
+            Stage modProductStage = new Stage();
+            modProductStage.setTitle("Modify Product");
+            modProductStage.initModality(Modality.WINDOW_MODAL);
+            modProductStage.initOwner(mainStage);
+
+            Scene productScene = new Scene(modProductWindow);
+            modProductStage.setScene(productScene);
+            ModifyProductFormController stageControl = loader.getController();
+            stageControl.createModProStage(modProductStage);
+            stageControl.setModPro(modPro);
+            modProductStage.showAndWait();
+        } catch (IOException e){
+            MainFormController.displayMessage();
+        }
     }
 }

@@ -10,7 +10,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <TextField id="searchField_AddProductPart" fx:id="searchField_Parts" layoutX="612.0" layoutY="14.0" onAction="#searchParts" onInputMethodTextChanged="#searchParts" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
+      <TextField id="searchField_AddProductPart" fx:id="searchField_Parts" layoutX="612.0" layoutY="14.0" onAction="#handleProSearchPart" onInputMethodTextChanged="#handleProSearchPart" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
       <TableView id="tableView_AddProductPartData" fx:id="tableView_PartData" layoutX="390.0" layoutY="49.0" prefHeight="164.0" prefWidth="392.0">
         <columns>
           <TableColumn id="column_PartID" fx:id="col_PartId" prefWidth="50.0" resizable="false" text="Part ID" />

@@ -51,11 +51,15 @@ public class ModifyPartFormController {
         this.modStage = modStage;
     }
 
-    public void initializeModForm(Part selectedPart){
+    @FXML
+    private void initialize() {
         modIndex = MainFormController.getIndex();
         toggleGroup_ModPart = new ToggleGroup();
         this.radio_ModInHouse.setToggleGroup(toggleGroup_ModPart);
         this.radio_ModOutsourced.setToggleGroup(toggleGroup_ModPart);
+    }
+
+    public void setModPart(Part selectedPart){
         if (selectedPart instanceof InHouse){
             this.radio_ModInHouse.setSelected(true);
             textField_ModMachineCompany.setText(Integer.toString(((InHouse) selectedPart).getMachineId()));
@@ -85,6 +89,7 @@ public class ModifyPartFormController {
 
     @FXML
     private void handleModSave(){
+        modId = Integer.parseInt(textField_ModId.getText());
         modName = textField_ModName.getText();
         modPrice = Double.parseDouble(textField_ModPrice.getText());
         modInv = Integer.parseInt(textField_ModInv.getText());
