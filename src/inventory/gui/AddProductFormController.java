@@ -40,8 +40,6 @@ public class AddProductFormController {
     @FXML
     private TableColumn<Part, Double> col_PartPrice;
     @FXML
-    private Button button_AddPart;
-    @FXML
     private TableView<Part> tableView_AssociatedPart;
     @FXML
     private TableColumn<Part, Integer> col_AssPartId;
@@ -51,12 +49,6 @@ public class AddProductFormController {
     private TableColumn<Part, Integer> col_AssPartInv;
     @FXML
     private TableColumn<Part, Double> col_AssPartPrice;
-    @FXML
-    private Button button_RemovePart;
-    @FXML
-    private Button button_AddProduct;
-    @FXML
-    private Button button_Cancel;
     @FXML
     private TextField text_ProductId;
     @FXML

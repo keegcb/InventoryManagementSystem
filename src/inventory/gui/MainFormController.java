@@ -35,12 +35,6 @@ public class MainFormController {
     @FXML
     private TableColumn<Part, Double> col_PartPrice;
     @FXML
-    private Button button_PartsAdd;
-    @FXML
-    private Button button_PartsModify;
-    @FXML
-    private Button button_PartsDelete;
-    @FXML
     private TextField searchProducts;
     @FXML
     private TableView<Product> tableView_Products;
@@ -52,27 +46,19 @@ public class MainFormController {
     private TableColumn<Product, Integer> col_ProductInv;
     @FXML
     private TableColumn<Product, Double> col_ProductPrice;
-    @FXML
-    private Button button_ProductsAdd;
-    @FXML
-    private Button button_ProductsModify;
-    @FXML
-    private Button button_ProductsDelete;
-    @FXML
-    private Button button_Exit;
 
     @FXML
     private void initialize(){
-        col_PartID.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
-        col_PartName.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
-        col_PartInv.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
-        col_PartPrice.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+        col_PartID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_PartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_PartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        col_PartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         tableView_Parts.setItems(Inventory.getAllParts());
 
-        col_ProductID.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        col_ProductName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        col_ProductInv.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-        col_ProductPrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        col_ProductID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_ProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_ProductInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        col_ProductPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         tableView_Products.setItems(Inventory.getAllProducts());
     }
 

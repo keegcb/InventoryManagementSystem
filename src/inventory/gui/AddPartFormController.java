@@ -41,10 +41,6 @@ public class AddPartFormController {
     private Label label_AddPartMachineCompany;
     @FXML
     private TextField textField_AddPartMachineCompany;
-    @FXML
-    private Button button_SavePart;
-    @FXML
-    private Button button_Cancel;
 
     @FXML
     private void initialize(){

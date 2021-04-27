@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.text.ParseException;
-
 public class ModifyPartFormController {
     private int modId;
     private String modName;
@@ -44,10 +42,6 @@ public class ModifyPartFormController {
     private Label label_ModMachineCompany;
     @FXML
     private TextField textField_ModMachineCompany;
-    @FXML
-    private Button button_SaveMod;
-    @FXML
-    private Button button_Cancel;
 
     public void createModPartStage (Stage modStage){
         this.modStage = modStage;
