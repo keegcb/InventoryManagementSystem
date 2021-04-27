@@ -10,8 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -226,13 +224,21 @@ public class MainFormController {
         if(isValidSelection(4)){
             Product selectedPro = tableView_Products.getSelectionModel().getSelectedItem();
             if (selectedPro != null){
-                Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
-                deleteWarn.setTitle("Delete Product");
-                deleteWarn.setHeaderText("You are about to delete " + selectedPro.getName() + ".\n" +
-                        "Click OK if you would like to proceed.");
-                Optional<ButtonType> selected = deleteWarn.showAndWait();
-                if (selected.get() == ButtonType.OK) {
-                    deleteProduct(selectedPro);
+                if (selectedPro.getAllAssociatedParts().isEmpty()){
+                    Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
+                    deleteWarn.setTitle("Delete Product");
+                    deleteWarn.setHeaderText("You are about to delete " + selectedPro.getName() + ".\n" +
+                            "Click OK if you would like to proceed.");
+                    Optional<ButtonType> selected = deleteWarn.showAndWait();
+                    if (selected.get() == ButtonType.OK) {
+                        deleteProduct(selectedPro);
+                    }
+                } else {
+                    Alert hasParts = new Alert(Alert.AlertType.WARNING);
+                    hasParts.setTitle("Warning");
+                    hasParts.setHeaderText("The selected product still has associated parts");
+                    hasParts.setContentText("\nPlease modify the selected product and remove all associated parts before deleting.");
+                    hasParts.showAndWait();
                 }
             }
         }

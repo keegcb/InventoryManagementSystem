@@ -199,24 +199,113 @@ public class ModifyProductFormController {
         }
     }
 
+    private boolean validModPro(){
+        boolean valid = true;
+        boolean stockSet = true;
+        String errorList = "";
+
+        if (text_ProductName.getText().isEmpty()){
+            errorList += "* Name field is not populated\n";
+            valid = false;
+        }
+        if (text_ProductPrice.getText().isEmpty()){
+            errorList += "* Price field is not populated\n";
+            valid = false;
+        } else {
+            try{
+                Double nPrice = Double.parseDouble(text_ProductPrice.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Price field needs to be in a number format\n";
+                valid = false;
+            }
+        }
+        if (text_ProductInv.getText().isEmpty()){
+            errorList += "* Inventory field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nInv = Integer.parseInt(text_ProductInv.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Inventory field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (text_ProductMax.getText().isEmpty()){
+            errorList += "* Maximum stock field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nMax = Integer.parseInt(text_ProductMax.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Maximum stock field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (text_ProductMin.getText().isEmpty()){
+            errorList += "* Minimum stock field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nMin = Integer.parseInt(text_ProductMin.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Minimum stock field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (stockSet){
+            try{
+                int tempInv = Integer.parseInt(text_ProductInv.getText());
+                int tempMax = Integer.parseInt(text_ProductMax.getText());
+                int tempMin = Integer.parseInt(text_ProductMin.getText());
+                if (tempMin > tempMax){
+                    errorList += "* Minimum stock value cannot be greater than the maximum\n";
+                    valid = false;
+                }
+                if (tempInv > tempMax || tempInv < tempMin ){
+                    errorList += "* Inventory value must be within the maximum and minimum range set\n";
+                    valid = false;
+                }
+            } catch (NumberFormatException e){
+                System.out.println("How did this happen?");
+                e.printStackTrace();
+            }
+        }
+        if (!valid){
+            Alert fieldError = new Alert(Alert.AlertType.ERROR);
+            fieldError.setTitle("Error");
+            fieldError.setHeaderText("Errors occurred when attempting to save the product.\nPlease address the following issues and try again.");
+            fieldError.setContentText(errorList);
+            fieldError.showAndWait();
+        }
+        return valid;
+    }
+
     @FXML
     private void handleSaveModPro() throws IOException {
-        proId = Integer.parseInt(text_ProductId.getText());
-        proName = text_ProductName.getText();
-        proPrice = Double.parseDouble(text_ProductPrice.getText());
-        proInv = Integer.parseInt(text_ProductInv.getText());
-        proMin = Integer.parseInt(text_ProductMin.getText());
-        proMax = Integer.parseInt(text_ProductMax.getText());
+        if (validModPro()){
+            proId = Integer.parseInt(text_ProductId.getText());
+            proName = text_ProductName.getText();
+            proPrice = Double.parseDouble(text_ProductPrice.getText());
+            proInv = Integer.parseInt(text_ProductInv.getText());
+            proMin = Integer.parseInt(text_ProductMin.getText());
+            proMax = Integer.parseInt(text_ProductMax.getText());
 
-        Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
-        ArrayList<Part> assParts = new ArrayList<>();
-        assParts.addAll(tableView_AssociatedPart.getItems());
-        for (Part assPart : assParts) {
-            addPro.addAssociatedPart(assPart);
+            Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
+            ArrayList<Part> assParts = new ArrayList<>();
+            assParts.addAll(tableView_AssociatedPart.getItems());
+            for (Part assPart : assParts) {
+                addPro.addAssociatedPart(assPart);
+            }
+
+            Inventory.updateProduct(modIndex, addPro);
+            modStage.close();
         }
-
-        Inventory.updateProduct(modIndex, addPro);
-        modStage.close();
     }
 
     @FXML

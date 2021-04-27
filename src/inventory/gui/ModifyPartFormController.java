@@ -150,14 +150,14 @@ public class ModifyPartFormController {
         }
         if (stockSet){
             try{
-                int inv = Integer.parseInt(textField_ModInv.getText());
-                int max = Integer.parseInt(textField_ModMax.getText());
-                int min = Integer.parseInt(textField_ModMax.getText());
-                if (min > max){
-                    errorList += "* Minimum stock value cannot be greater than the maximum\n";
+                int tempInv = Integer.parseInt(textField_ModInv.getText());
+                int tempMax = Integer.parseInt(textField_ModMax.getText());
+                int tempMin = Integer.parseInt(textField_ModMin.getText());
+                if (tempMin >= tempMax){
+                    errorList += "* Minimum stock value must be less than the maximum\n";
                     valid = false;
                 }
-                if (inv > max || inv < min ){
+                if (tempInv > tempMax || tempInv < tempMin ){
                     errorList += "* Inventory value must be within the maximum and minimum range set\n";
                     valid = false;
                 }
