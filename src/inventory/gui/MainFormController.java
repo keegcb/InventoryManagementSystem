@@ -22,6 +22,7 @@ public class MainFormController {
     private static int index;
     private ObservableList<Part> partSearch = FXCollections.observableArrayList();
     private ObservableList<Product> productSearch = FXCollections.observableArrayList();
+    private static boolean validSelect;
 
     @FXML
     private TextField searchParts;
@@ -77,6 +78,60 @@ public class MainFormController {
         tableView_Products.setItems(Inventory.getAllProducts());
     }
 
+    private boolean isValidSelection(int option){
+        switch (option){
+            case 1: Part modPartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
+                if(modPartAttempt != null){
+                    validSelect = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be modified.");
+                    notValid.showAndWait();
+                    validSelect = false;
+                }
+                break;
+            case 2: Part removePartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
+                if(removePartAttempt != null){
+                    validSelect = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be removed.");
+                    notValid.showAndWait();
+                    validSelect = false;
+                }
+                break;
+            case 3: Product modProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
+                if(modProAttempt != null){
+                    validSelect = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid product has not been selected.");
+                    notValid.setContentText("Please select a valid product from the list to be modified.");
+                    notValid.showAndWait();
+                    validSelect = false;
+                }
+                break;
+            case 4: Product removeProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
+                if(removeProAttempt != null){
+                    validSelect = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid product has not been selected.");
+                    notValid.setContentText("Please select a valid product from the list to be deleted.");
+                    notValid.showAndWait();
+                    validSelect = false;
+                }
+                break;
+        }
+        return validSelect;
+    }
+
     @FXML
     void handleAddPart(ActionEvent click) throws IOException {
         InventoryManagementSystem.openAddParts();
@@ -93,14 +148,10 @@ public class MainFormController {
                     searchParts.clear();
                     partSearch.add(idPart);
                     tableView_Parts.setItems(partSearch);
-                } else if (idPart == null) {
-                    MainFormController.displayMessage();
                 }
             } catch (NumberFormatException e) {
                 if (Inventory.lookupPart(searchParts.getText()) != null) {
                     tableView_Parts.setItems(Inventory.lookupPart(searchParts.getText()));
-                } else {
-                    MainFormController.displayMessage();
                 }
             }
         }
@@ -108,32 +159,28 @@ public class MainFormController {
 
     @FXML
     void handleModPart(ActionEvent click) throws IOException{
-        Part modPart = tableView_Parts.getSelectionModel().getSelectedItem();
-        index = getAllParts().indexOf(modPart);
-        if (modPart != null){
-            InventoryManagementSystem.openModParts(modPart);
-        } else {
-            Alert openMod = new Alert(Alert.AlertType.ERROR);
-            openMod.setTitle("Error");
-            openMod.setHeaderText("Could Not Complete Action");
-            openMod.setContentText("The part modification screen could not be opened.\n" +
-                    "Please verify that you have a valid part selected before clicking the modify button.");
+        if(isValidSelection(1)){
+            Part modPart = tableView_Parts.getSelectionModel().getSelectedItem();
+            index = getAllParts().indexOf(modPart);
+            if (modPart != null){
+                InventoryManagementSystem.openModParts(modPart);
+            }
         }
     }
 
     @FXML
     void handleDeletePart(ActionEvent click) throws IOException {
-        Part selectedPart = tableView_Parts.getSelectionModel().getSelectedItem();
-        if (selectedPart != null){
-            Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteWarn.setTitle("Delete Part");
-            deleteWarn.setHeaderText("You are about to delete " + selectedPart.getName() + ".\n" +
-                    "Click OK if you would like to proceed.");
-            Optional<ButtonType> selected = deleteWarn.showAndWait();
-            if (selected.get() == ButtonType.OK) {
-                deletePart(selectedPart);
-            } else {
-                deleteWarn.close();
+        if(isValidSelection(2)){
+            Part selectedPart = tableView_Parts.getSelectionModel().getSelectedItem();
+            if (selectedPart != null) {
+                Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
+                deleteWarn.setTitle("Delete Part");
+                deleteWarn.setHeaderText("You are about to delete " + selectedPart.getName() + ".\n" +
+                        "Click OK if you would like to proceed.");
+                Optional<ButtonType> selected = deleteWarn.showAndWait();
+                if (selected.get() == ButtonType.OK) {
+                    deletePart(selectedPart);
+                }
             }
         }
     }
@@ -154,14 +201,10 @@ public class MainFormController {
                     searchProducts.clear();
                     productSearch.add(idPro);
                     tableView_Products.setItems(productSearch);
-                } else if (idPro == null) {
-                    MainFormController.displayMessage();
                 }
             } catch (NumberFormatException e) {
                 if (Inventory.lookupProduct(searchProducts.getText()) != null) {
                     tableView_Products.setItems(Inventory.lookupProduct(searchProducts.getText()));
-                } else {
-                    MainFormController.displayMessage();
                 }
             }
         }
@@ -169,28 +212,28 @@ public class MainFormController {
 
     @FXML
     void handleModPro(ActionEvent click) throws IOException{
-        Product modPro = tableView_Products.getSelectionModel().getSelectedItem();
-        index = getAllProducts().indexOf(modPro);
-        if (modPro != null){
-            InventoryManagementSystem.openModPro(modPro);
-        } else {
-            displayMessage();
+        if(isValidSelection(3)) {
+            Product modPro = tableView_Products.getSelectionModel().getSelectedItem();
+            index = getAllProducts().indexOf(modPro);
+            if (modPro != null) {
+                InventoryManagementSystem.openModPro(modPro);
+            }
         }
     }
 
     @FXML
     void handleDeleteProduct(ActionEvent click) throws IOException {
-        Product selectedPro = tableView_Products.getSelectionModel().getSelectedItem();
-        if (selectedPro != null){
-            Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteWarn.setTitle("Delete Product");
-            deleteWarn.setHeaderText("You are about to delete " + selectedPro.getName() + ".\n" +
-                    "Click OK if you would like to proceed.");
-            Optional<ButtonType> selected = deleteWarn.showAndWait();
-            if (selected.get() == ButtonType.OK) {
-                deleteProduct(selectedPro);
-            } else {
-                deleteWarn.close();
+        if(isValidSelection(4)){
+            Product selectedPro = tableView_Products.getSelectionModel().getSelectedItem();
+            if (selectedPro != null){
+                Alert deleteWarn = new Alert(Alert.AlertType.CONFIRMATION);
+                deleteWarn.setTitle("Delete Product");
+                deleteWarn.setHeaderText("You are about to delete " + selectedPro.getName() + ".\n" +
+                        "Click OK if you would like to proceed.");
+                Optional<ButtonType> selected = deleteWarn.showAndWait();
+                if (selected.get() == ButtonType.OK) {
+                    deleteProduct(selectedPro);
+                }
             }
         }
     }
@@ -215,33 +258,5 @@ public class MainFormController {
 
     public static int getIndex() {
         return index;
-    }
-
-
-
-    public static void displayMessage(){
-        String methodName = null;
-        StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        for (int i=0; i< stacktrace.length; i++){
-            if (stacktrace[i].getMethodName().equals("displayMessage")){
-                methodName = stacktrace[i+1].getMethodName();
-                break;
-            }
-        }
-
-        if (methodName.equals("deletePart")){
-            Alert delete = new Alert(Alert.AlertType.INFORMATION);
-            delete.setTitle("Notification");
-            delete.setHeaderText("Part Deleted");
-            delete.setContentText("The selected part has been removed from the inventory parts list");
-            delete.showAndWait();
-        }
-        if (methodName.equals("handleModPart")){
-            Alert openMod = new Alert(Alert.AlertType.ERROR);
-            openMod.setTitle("Error");
-            openMod.setHeaderText("Could Not Complete Action");
-            openMod.setContentText("The part modification screen could not be opened.\n" +
-                    "Please verify that you have a valid part selected before clicking the modify button.");
-        }
     }
 }

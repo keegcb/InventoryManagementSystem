@@ -99,7 +99,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="277.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button id="button_Exit" fx:id="button_Exit" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" text="Exit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Button id="button_Exit" fx:id="button_Exit" layoutX="456.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleExit" text="Exit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children></AnchorPane>
          </children>
       </GridPane>

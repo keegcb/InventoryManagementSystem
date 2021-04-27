@@ -70,26 +70,132 @@ public class AddPartFormController {
         }
     }
 
+    private boolean validPart(){
+        boolean valid = true;
+        boolean stockSet = true;
+        String errorList = "";
+
+        if (textField_AddPartName.getText().isEmpty()){
+            errorList += "* Name field is not populated\n";
+            valid = false;
+        }
+        if (textField_AddPartPrice.getText().isEmpty()){
+            errorList += "* Price field is not populated\n";
+            valid = false;
+        } else {
+            try{
+                Double nPrice = Double.parseDouble(textField_AddPartPrice.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Price field needs to be in a number format\n";
+                valid = false;
+            }
+        }
+        if (textField_AddPartInv.getText().isEmpty()){
+            errorList += "* Inventory field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nInv = Integer.parseInt(textField_AddPartInv.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Inventory field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (textField_AddPartMax.getText().isEmpty()){
+            errorList += "* Maximum stock field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nMax = Integer.parseInt(textField_AddPartMax.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Maximum stock field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (textField_AddPartMin.getText().isEmpty()){
+            errorList += "* Minimum stock field is not populated\n";
+            valid = false;
+            stockSet = false;
+        } else {
+            try{
+                int nMin = Integer.parseInt(textField_AddPartMin.getText());
+            } catch (NumberFormatException e){
+                errorList += "* Minimum stock field needs to be in a whole number format\n";
+                valid = false;
+                stockSet = false;
+            }
+        }
+        if (stockSet){
+            try{
+                int tempInv = Integer.parseInt(textField_AddPartInv.getText());
+                int tempMax = Integer.parseInt(textField_AddPartMax.getText());
+                int tempMin = Integer.parseInt(textField_AddPartMin.getText());
+                if (tempMin > tempMax){
+                    errorList += "* Minimum stock value cannot be greater than the maximum\n";
+                    valid = false;
+                }
+                if (tempInv > tempMax || tempInv < tempMin ){
+                    errorList += "* Inventory value must be within the maximum and minimum range set\n";
+                    valid = false;
+                }
+            } catch (NumberFormatException e){
+                System.out.println("How did this happen?");
+                e.printStackTrace();
+            }
+        }
+        if (textField_AddPartMachineCompany.getText().isEmpty()){
+            if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddInHouse)){
+                errorList += "* Machine ID field is not populated\n";
+            } else if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddOutsourced)){
+                errorList += "* Company Name field is not populated\n";
+            }
+            valid = false;
+        } else {
+            if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddInHouse)){
+                try {
+                    int inH = Integer.parseInt(textField_AddPartMachineCompany.getText());
+                } catch (NumberFormatException e){
+                    errorList += "* Machine ID value needs to be in a whole number format\n";
+                    valid = false;
+                }
+            }
+        }
+        if (!valid){
+            Alert fieldError = new Alert(Alert.AlertType.ERROR);
+            fieldError.setTitle("Error");
+            fieldError.setHeaderText("Errors occurred when attempting to save the part.\nPlease address the following issues and try again.");
+            fieldError.setContentText(errorList);
+            fieldError.showAndWait();
+        }
+        return valid;
+    }
+
     @FXML
     private void handleSave(){
-        addPartName = textField_AddPartName.getText();
-        addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
-        addPartInv = Integer.parseInt(textField_AddPartInv.getText());
-        addPartMin = Integer.parseInt(textField_AddPartMin.getText());
-        addPartMax = Integer.parseInt(textField_AddPartMax.getText());
-        if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddInHouse)){
-            addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
-            InHouse inHouse = new InHouse
-                    (addPartId, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
-            Inventory.addPart(inHouse);
+        if (validPart()){
+            addPartName = textField_AddPartName.getText();
+            addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
+            addPartInv = Integer.parseInt(textField_AddPartInv.getText());
+            addPartMin = Integer.parseInt(textField_AddPartMin.getText());
+            addPartMax = Integer.parseInt(textField_AddPartMax.getText());
+            if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddInHouse)){
+                addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
+                InHouse inHouse = new InHouse
+                        (addPartId, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
+                Inventory.addPart(inHouse);
+            }
+            if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddOutsourced)){
+                addCompany = textField_AddPartMachineCompany.getText();
+                Outsourced outsourced = new Outsourced
+                        (addPartId, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
+                Inventory.addPart(outsourced);
+            }
+            partStage.close();
         }
-        if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddOutsourced)){
-            addCompany = textField_AddPartMachineCompany.getText();
-            Outsourced outsourced = new Outsourced
-                    (addPartId, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
-            Inventory.addPart(outsourced);
-        }
-        partStage.close();
     }
 
     @FXML

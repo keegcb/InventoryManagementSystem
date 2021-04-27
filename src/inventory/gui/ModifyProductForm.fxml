@@ -10,7 +10,7 @@
             <font>
                 <Font name="System Bold" size="18.0" />
             </font></Label>
-        <TextField id="searchField_AddProductPart" fx:id="searchField_Parts" layoutX="612.0" layoutY="14.0" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
+        <TextField id="searchField_AddProductPart" fx:id="searchField_Parts" layoutX="612.0" layoutY="14.0" onAction="#handleModProSearchPart" prefHeight="25.0" prefWidth="170.0" promptText="Search by Part ID or Name" />
         <TableView id="tableView_AddProduct-PartData" fx:id="tableView_PartData" layoutX="390.0" layoutY="49.0" prefHeight="164.0" prefWidth="392.0">
             <columns>
                 <TableColumn fx:id="col_PartId" prefWidth="50.0" resizable="false" text="Part ID" />
@@ -22,7 +22,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <Button fx:id="button_AddPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" text="Add" />
+        <Button fx:id="button_AddPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleModProAddPart" text="Add" />
         <TableView id="tableView_AddProduct-AssociatedPart" fx:id="tableView_AssociatedPart" layoutX="390.0" layoutY="279.0" prefHeight="164.0" prefWidth="392.0">
             <columns>
                 <TableColumn fx:id="col_AssPartId" prefWidth="50.0" resizable="false" text="Part ID" />
@@ -34,9 +34,9 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <Button fx:id="button_RemovePart" layoutX="623.0" layoutY="454.0" mnemonicParsing="false" text="Remove Associated Part" />
-        <Button fx:id="button_AddProduct" layoutX="623.0" layoutY="491.0" mnemonicParsing="false" text="Save" />
-        <Button fx:id="button_Cancel" layoutX="715.0" layoutY="491.0" mnemonicParsing="false" text="Cancel" />
+        <Button fx:id="button_RemovePart" layoutX="623.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleDeleteModAssPart" text="Remove Associated Part" />
+        <Button fx:id="button_AddProduct" layoutX="623.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleSaveModPro" text="Save" />
+        <Button fx:id="button_Cancel" layoutX="715.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         <Label layoutX="53.0" layoutY="120.0" text="ID" AnchorPane.leftAnchor="70.0" />
         <Label layoutX="53.0" layoutY="170.0" text="Name" AnchorPane.leftAnchor="70.0" />
         <Label layoutX="51.0" layoutY="220.0" text="Inv" AnchorPane.leftAnchor="70.0" />

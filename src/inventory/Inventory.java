@@ -7,8 +7,8 @@ public class Inventory {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
-    private static int partIDNumber = 100000;
-    private static int productIDNumber = 1000;
+    private static int partIDNumber = 100;
+    private static int productIDNumber = 0;
 
     public static void addPart(Part newPart){
         allParts.add(newPart);

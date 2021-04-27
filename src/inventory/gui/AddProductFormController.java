@@ -25,6 +25,7 @@ public class AddProductFormController {
     private Stage proStage;
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
     private ObservableList<Part> associatedPart = FXCollections.observableArrayList();
+    private static boolean validPart = false;
 
     @FXML
     private TextField searchField_Parts;
@@ -123,27 +124,61 @@ public class AddProductFormController {
         }
     }
 
+    private boolean isValidSelection(int option){
+        switch (option){
+            case 1: Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
+                    if(addAttempt != null){
+                        validPart = true;
+                    } else {
+                        Alert notValid = new Alert(Alert.AlertType.WARNING);
+                        notValid.setTitle("Warning");
+                        notValid.setHeaderText("A valid part has not been selected.");
+                        notValid.setContentText("Please select a valid part from the list to be added.");
+                        notValid.showAndWait();
+                        validPart = false;
+                    }
+                    break;
+            case 2: Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+                    if(removeAttempt != null){
+                        validPart = true;
+                    } else {
+                        Alert notValid = new Alert(Alert.AlertType.WARNING);
+                        notValid.setTitle("Warning");
+                        notValid.setHeaderText("A valid part has not been selected.");
+                        notValid.setContentText("Please select a valid part from the list to be removed.");
+                        notValid.showAndWait();
+                        validPart = false;
+                    }
+                    break;
+        }
+        return validPart;
+    }
+
     @FXML
     private void handleProAddPart(){
-        Part selectedPart = tableView_PartData.getSelectionModel().getSelectedItem();
-        associatedPart.add(selectedPart);
-        tableView_AssociatedPart.setItems(associatedPart);
+        if (isValidSelection(1)){
+            Part selectedPart = tableView_PartData.getSelectionModel().getSelectedItem();
+            associatedPart.add(selectedPart);
+            tableView_AssociatedPart.setItems(associatedPart);
+        }
     }
 
     @FXML
     private void handleDeleteAssPart() throws IOException{
-        Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
-        if (selectedPart != null){
-            Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            deleteAlert.setTitle("Delete Associated Part?");
-            deleteAlert.setHeaderText("You are about to remove the part " + selectedPart.getName() + (" from the list of associated parts.\n" +
-                    "If you would like to proceed, click OK."));
-            Optional<ButtonType> selected = deleteAlert.showAndWait();
-            if (selected.get() == ButtonType.OK){
-                associatedPart.remove(selectedPart);
-                tableView_AssociatedPart.setItems(associatedPart);
-            } else {
-                deleteAlert.close();
+        if (isValidSelection(2)){
+            Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+            if (selectedPart != null){
+                Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                deleteAlert.setTitle("Delete Associated Part?");
+                deleteAlert.setHeaderText("You are about to remove the part " + selectedPart.getName() + (" from the list of associated parts.\n" +
+                        "If you would like to proceed, click OK."));
+                Optional<ButtonType> selected = deleteAlert.showAndWait();
+                if (selected.get() == ButtonType.OK){
+                    associatedPart.remove(selectedPart);
+                    tableView_AssociatedPart.setItems(associatedPart);
+                } else {
+                    deleteAlert.close();
+                }
             }
         }
     }

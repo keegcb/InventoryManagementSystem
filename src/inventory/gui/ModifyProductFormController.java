@@ -6,12 +6,13 @@ import inventory.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class ModifyProductFormController {
 
@@ -26,6 +27,7 @@ public class ModifyProductFormController {
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
     private ObservableList<Part> associatedPart = FXCollections.observableArrayList();
     private Product modPro;
+    private static boolean validPart = false;
 
     @FXML
     private TextField searchField_Parts;
@@ -104,4 +106,121 @@ public class ModifyProductFormController {
         text_ProductMin.setText(Integer.toString(modPro.getMin()));
     }
 
+    @FXML
+    private void handleModProSearchPart(){
+        if (searchField_Parts.getText().isEmpty()){
+            tableView_PartData.setItems(Inventory.getAllParts());
+        } else {
+            try {
+                Part idPart = Inventory.lookupPart(Integer.parseInt(searchField_Parts.getText()));
+                if (idPart != null) {
+                    searchPart.clear();
+                    searchPart.add(idPart);
+                    tableView_PartData.setItems(searchPart);
+                } else if (idPart == null) {
+                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
+                    noMatch.setTitle("Error");
+                    noMatch.setHeaderText("No Matches");
+                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
+                            "Please make sure you have entered a valid Part ID or Name.");
+                    noMatch.showAndWait();
+                }
+            } catch (NumberFormatException e) {
+                if (Inventory.lookupPart(searchField_Parts.getText()) != null) {
+                    tableView_PartData.setItems(Inventory.lookupPart(searchField_Parts.getText()));
+                } else {
+                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
+                    noMatch.setTitle("Error");
+                    noMatch.setHeaderText("No Matches");
+                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
+                            "Please make sure you have entered a valid Part ID or Name.");
+                    noMatch.showAndWait();
+                }
+            }
+        }
+    }
+
+    private boolean isValidSelection(int option){
+        switch (option){
+            case 1: Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
+                if(addAttempt != null){
+                    validPart = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be added.");
+                    notValid.showAndWait();
+                    validPart = false;
+                }
+                break;
+            case 2: Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+                if(removeAttempt != null){
+                    validPart = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be removed.");
+                    notValid.showAndWait();
+                    validPart = false;
+                }
+                break;
+        }
+        return validPart;
+    }
+
+    @FXML
+    private void handleModProAddPart(){
+        if (isValidSelection(1)){
+            Part selectedPart = tableView_PartData.getSelectionModel().getSelectedItem();
+            associatedPart.add(selectedPart);
+            tableView_AssociatedPart.setItems(associatedPart);
+        }
+    }
+
+    @FXML
+    private void handleDeleteModAssPart() throws IOException{
+        if (isValidSelection(2)){
+            Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+            if (selectedPart != null){
+                Alert deleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                deleteAlert.setTitle("Delete Associated Part?");
+                deleteAlert.setHeaderText("You are about to remove the part " + selectedPart.getName() + (" from the list of associated parts.\n" +
+                        "If you would like to proceed, click OK."));
+                Optional<ButtonType> selected = deleteAlert.showAndWait();
+                if (selected.get() == ButtonType.OK){
+                    associatedPart.remove(selectedPart);
+                    tableView_AssociatedPart.setItems(associatedPart);
+                } else {
+                    deleteAlert.close();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void handleSaveModPro() throws IOException {
+        proId = Integer.parseInt(text_ProductId.getText());
+        proName = text_ProductName.getText();
+        proPrice = Double.parseDouble(text_ProductPrice.getText());
+        proInv = Integer.parseInt(text_ProductInv.getText());
+        proMin = Integer.parseInt(text_ProductMin.getText());
+        proMax = Integer.parseInt(text_ProductMax.getText());
+
+        Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
+        ArrayList<Part> assParts = new ArrayList<>();
+        assParts.addAll(tableView_AssociatedPart.getItems());
+        for (Part assPart : assParts) {
+            addPro.addAssociatedPart(assPart);
+        }
+
+        Inventory.updateProduct(modIndex, addPro);
+        modStage.close();
+    }
+
+    @FXML
+    private void handleCancel(){
+        modStage.close();
+    }
 }
