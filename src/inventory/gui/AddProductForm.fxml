@@ -22,7 +22,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button id="button_AddProductPart" fx:id="button_AddPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" text="Add" />
+      <Button id="button_AddProductPart" fx:id="button_AddPart" layoutX="729.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleProAddPart" text="Add" />
       <TableView id="tableView_AddProductAssociatedPart" fx:id="tableView_AssociatedPart" layoutX="390.0" layoutY="279.0" prefHeight="164.0" prefWidth="392.0">
          <columns>
             <TableColumn id="column_AssociatedPartID" fx:id="col_AssPartId" prefWidth="50.0" resizable="false" text="Part ID" />
@@ -34,9 +34,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button id="button_RemoveProductPart" fx:id="button_RemovePart" layoutX="623.0" layoutY="454.0" mnemonicParsing="false" text="Remove Associated Part" />
-      <Button id="button_AddProduct" fx:id="button_AddProduct" layoutX="623.0" layoutY="491.0" mnemonicParsing="false" text="Save" />
-      <Button id="button_AddProductCancel" fx:id="button_Cancel" layoutX="715.0" layoutY="491.0" mnemonicParsing="false" text="Cancel" />
+      <Button id="button_RemoveProductPart" fx:id="button_RemovePart" layoutX="623.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleDeleteAssPart" text="Remove Associated Part" />
+      <Button id="button_AddProduct" fx:id="button_AddProduct" layoutX="623.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleSavePro" text="Save" />
+      <Button id="button_AddProductCancel" fx:id="button_Cancel" layoutX="715.0" layoutY="491.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
       <Label layoutX="53.0" layoutY="120.0" text="ID" AnchorPane.leftAnchor="70.0" />
       <Label layoutX="53.0" layoutY="170.0" text="Name" AnchorPane.leftAnchor="70.0" />
       <Label layoutX="51.0" layoutY="220.0" text="Inv" AnchorPane.leftAnchor="70.0" />

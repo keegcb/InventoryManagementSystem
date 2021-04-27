@@ -70,7 +70,7 @@ public class InventoryManagementSystem extends Application {
             stageControl.setModPart(modPart);
             modPartStage.showAndWait();
         } catch (IOException e){
-            MainFormController.displayMessage();
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +95,7 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
-    public static void openModPro(Product modPro) throws IOException {
+    public static void openModPro(Product modPro) throws IOException{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/ModifyProductForm.fxml")));
@@ -106,14 +106,15 @@ public class InventoryManagementSystem extends Application {
             modProductStage.initModality(Modality.WINDOW_MODAL);
             modProductStage.initOwner(mainStage);
 
-            Scene productScene = new Scene(modProductWindow);
-            modProductStage.setScene(productScene);
+            Scene modProScene = new Scene(modProductWindow);
+            modProductStage.setScene(modProScene);
             ModifyProductFormController stageControl = loader.getController();
             stageControl.createModProStage(modProductStage);
+
             stageControl.setModPro(modPro);
             modProductStage.showAndWait();
         } catch (IOException e){
-            MainFormController.displayMessage();
+            e.printStackTrace();
         }
     }
 }

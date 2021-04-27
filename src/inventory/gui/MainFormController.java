@@ -113,7 +113,11 @@ public class MainFormController {
         if (modPart != null){
             InventoryManagementSystem.openModParts(modPart);
         } else {
-            displayMessage();
+            Alert openMod = new Alert(Alert.AlertType.ERROR);
+            openMod.setTitle("Error");
+            openMod.setHeaderText("Could Not Complete Action");
+            openMod.setContentText("The part modification screen could not be opened.\n" +
+                    "Please verify that you have a valid part selected before clicking the modify button.");
         }
     }
 
@@ -191,6 +195,24 @@ public class MainFormController {
         }
     }
 
+    @FXML
+    void handleExit(ActionEvent click) throws IOException {
+        Alert exitWarn = new Alert(Alert.AlertType.CONFIRMATION);
+        exitWarn.setTitle("Exit");
+        exitWarn.setTitle("Close Inventory Management?");
+        exitWarn.setContentText("You are about to close the Inventory Management application.\n " +
+                "If you would like to proceed, please click OK.");
+        Optional<ButtonType> selected = exitWarn.showAndWait();
+        if (selected.get() == ButtonType.OK){
+            System.exit(0);
+        } else {
+            Alert exitCancel = new Alert(Alert.AlertType.INFORMATION);
+            exitCancel.setTitle("Cancel");
+            exitCancel.setTitle("Application was not closed.");
+            exitCancel.showAndWait();
+        }
+    }
+
     public static int getIndex() {
         return index;
     }
@@ -206,14 +228,7 @@ public class MainFormController {
                 break;
             }
         }
-        if (methodName.equals("searchParts")){
-            Alert noMatch = new Alert(Alert.AlertType.ERROR);
-            noMatch.setTitle("Error");
-            noMatch.setHeaderText("No Matches");
-            noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
-                    "Please make sure you have entered a valid Part ID or Name.");
-            noMatch.showAndWait();
-        }
+
         if (methodName.equals("deletePart")){
             Alert delete = new Alert(Alert.AlertType.INFORMATION);
             delete.setTitle("Notification");

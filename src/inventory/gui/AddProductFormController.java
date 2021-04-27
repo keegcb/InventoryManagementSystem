@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AddProductFormController {
@@ -100,13 +101,23 @@ public class AddProductFormController {
                     searchPart.add(idPart);
                     tableView_PartData.setItems(searchPart);
                 } else if (idPart == null) {
-                    MainFormController.displayMessage();
+                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
+                    noMatch.setTitle("Error");
+                    noMatch.setHeaderText("No Matches");
+                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
+                            "Please make sure you have entered a valid Part ID or Name.");
+                    noMatch.showAndWait();
                 }
             } catch (NumberFormatException e) {
                 if (Inventory.lookupPart(searchField_Parts.getText()) != null) {
                     tableView_PartData.setItems(Inventory.lookupPart(searchField_Parts.getText()));
                 } else {
-                    MainFormController.displayMessage();
+                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
+                    noMatch.setTitle("Error");
+                    noMatch.setHeaderText("No Matches");
+                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
+                            "Please make sure you have entered a valid Part ID or Name.");
+                    noMatch.showAndWait();
                 }
             }
         }
@@ -135,5 +146,30 @@ public class AddProductFormController {
                 deleteAlert.close();
             }
         }
+    }
+
+    @FXML
+    private void handleSavePro() throws IOException {
+        proId = Integer.parseInt(text_ProductId.getText());
+        proName = text_ProductName.getText();
+        proPrice = Double.parseDouble(text_ProductPrice.getText());
+        proInv = Integer.parseInt(text_ProductInv.getText());
+        proMin = Integer.parseInt(text_ProductMin.getText());
+        proMax = Integer.parseInt(text_ProductMax.getText());
+
+        Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
+        ArrayList<Part> assParts = new ArrayList<>();
+        assParts.addAll(tableView_AssociatedPart.getItems());
+        for (Part assPart : assParts) {
+            addPro.addAssociatedPart(assPart);
+        }
+
+        Inventory.addProduct(addPro);
+        proStage.close();
+    }
+
+    @FXML
+    private void handleCancel(){
+        proStage.close();
     }
 }

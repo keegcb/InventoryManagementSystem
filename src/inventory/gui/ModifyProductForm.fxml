@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="540.0" maxWidth="820.0" minHeight="540.0" minWidth="820.0" prefHeight="540.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.gui.AddProductFormController">
+<AnchorPane maxHeight="540.0" maxWidth="820.0" minHeight="540.0" minWidth="820.0" prefHeight="540.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventory.gui.ModifyProductFormController">
     <children>
         <Label layoutX="43.0" layoutY="36.0" text="Modify Product">
             <font>

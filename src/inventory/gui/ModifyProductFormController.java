@@ -21,6 +21,7 @@ public class ModifyProductFormController {
     private int proInv;
     private int proMin;
     private int proMax;
+    private int modIndex;
     private Stage modStage;
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
     private ObservableList<Part> associatedPart = FXCollections.observableArrayList();
@@ -75,6 +76,7 @@ public class ModifyProductFormController {
 
     @FXML
     private void initialize(){
+        modIndex = MainFormController.getIndex();
         col_PartId.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_PartName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_PartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -82,16 +84,17 @@ public class ModifyProductFormController {
 
         tableView_PartData.setItems(Inventory.getAllParts());
 
+    }
+
+    public void setModPro(Product selectedPro){
         col_AssPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_AssPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
         col_AssPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         col_AssPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-    }
 
-    public void setModPro(Product selectedPro){
         modPro = selectedPro;
         associatedPart = modPro.getAllAssociatedParts();
-        tableView_AssociatedPart.setItems(associatedPart);
+        tableView_AssociatedPart.setItems(modPro.getAllAssociatedParts());
 
         text_ProductId.setText(Integer.toString(modPro.getId()));
         text_ProductName.setText(modPro.getName());
