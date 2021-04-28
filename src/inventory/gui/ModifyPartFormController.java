@@ -9,14 +9,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ModifyPartFormController {
-    private int modId;
-    private String modName;
-    private double modPrice;
-    private int modInv;
-    private int modMin;
-    private int modMax;
-    private int modMachineId;
-    private String modCompany;
     private Stage modStage;
     private int modIndex;
 
@@ -191,20 +183,20 @@ public class ModifyPartFormController {
     private void handleModSave(){
         if (validModPart()){
             try {
-                modId = Integer.parseInt(textField_ModId.getText());
-                modName = textField_ModName.getText();
-                modPrice = Double.parseDouble(textField_ModPrice.getText());
-                modInv = Integer.parseInt(textField_ModInv.getText());
-                modMin = Integer.parseInt(textField_ModMin.getText());
-                modMax = Integer.parseInt(textField_ModMax.getText());
+                int modId = Integer.parseInt(textField_ModId.getText());
+                String modName = textField_ModName.getText();
+                double modPrice = Double.parseDouble(textField_ModPrice.getText());
+                int modInv = Integer.parseInt(textField_ModInv.getText());
+                int modMin = Integer.parseInt(textField_ModMin.getText());
+                int modMax = Integer.parseInt(textField_ModMax.getText());
                 if (this.toggleGroup_ModPart.getSelectedToggle().equals(this.radio_ModInHouse)){
-                    modMachineId = Integer.parseInt(textField_ModMachineCompany.getText());
+                    int modMachineId = Integer.parseInt(textField_ModMachineCompany.getText());
                     InHouse inHouse = new InHouse
                             (modId, modName, modPrice, modInv, modMin, modMax, modMachineId);
                     Inventory.updatePart(modIndex, inHouse);
                 }
                 if (this.toggleGroup_ModPart.getSelectedToggle().equals(this.radio_ModOutsourced)){
-                    modCompany = textField_ModMachineCompany.getText();
+                    String modCompany = textField_ModMachineCompany.getText();
                     Outsourced outsourced = new Outsourced
                             (modId, modName, modPrice, modInv, modMax, modMin, modCompany);
                     Inventory.updatePart(modIndex, outsourced);

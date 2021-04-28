@@ -16,17 +16,10 @@ import java.util.Optional;
 
 public class ModifyProductFormController {
 
-    private int proId;
-    private String proName;
-    private Double proPrice;
-    private int proInv;
-    private int proMin;
-    private int proMax;
     private int modIndex;
     private Stage modStage;
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
     private ObservableList<Part> associatedPart = FXCollections.observableArrayList();
-    private Product modPro;
     private static boolean validPart = false;
 
     @FXML
@@ -86,16 +79,15 @@ public class ModifyProductFormController {
         col_AssPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         col_AssPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        modPro = selectedPro;
-        associatedPart = modPro.getAllAssociatedParts();
-        tableView_AssociatedPart.setItems(modPro.getAllAssociatedParts());
+        associatedPart = selectedPro.getAllAssociatedParts();
+        tableView_AssociatedPart.setItems(selectedPro.getAllAssociatedParts());
 
-        text_ProductId.setText(Integer.toString(modPro.getId()));
-        text_ProductName.setText(modPro.getName());
-        text_ProductInv.setText(Integer.toString(modPro.getStock()));
-        text_ProductPrice.setText(Double.toString(modPro.getPrice()));
-        text_ProductMax.setText(Integer.toString(modPro.getMax()));
-        text_ProductMin.setText(Integer.toString(modPro.getMin()));
+        text_ProductId.setText(Integer.toString(selectedPro.getId()));
+        text_ProductName.setText(selectedPro.getName());
+        text_ProductInv.setText(Integer.toString(selectedPro.getStock()));
+        text_ProductPrice.setText(Double.toString(selectedPro.getPrice()));
+        text_ProductMax.setText(Integer.toString(selectedPro.getMax()));
+        text_ProductMin.setText(Integer.toString(selectedPro.getMin()));
     }
 
     @FXML
@@ -141,9 +133,10 @@ public class ModifyProductFormController {
     }
 
     private boolean isValidSelection(int option){
-        switch (option){
-            case 1: Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
-                if(addAttempt != null){
+        switch (option) {
+            case 1 -> {
+                Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
+                if (addAttempt != null) {
                     validPart = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -153,9 +146,10 @@ public class ModifyProductFormController {
                     notValid.showAndWait();
                     validPart = false;
                 }
-                break;
-            case 2: Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
-                if(removeAttempt != null){
+            }
+            case 2 -> {
+                Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+                if (removeAttempt != null) {
                     validPart = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -165,7 +159,7 @@ public class ModifyProductFormController {
                     notValid.showAndWait();
                     validPart = false;
                 }
-                break;
+            }
         }
         return validPart;
     }
@@ -287,18 +281,17 @@ public class ModifyProductFormController {
     }
 
     @FXML
-    private void handleSaveModPro() throws IOException {
+    private void handleSaveModPro() {
         if (validModPro()){
-            proId = Integer.parseInt(text_ProductId.getText());
-            proName = text_ProductName.getText();
-            proPrice = Double.parseDouble(text_ProductPrice.getText());
-            proInv = Integer.parseInt(text_ProductInv.getText());
-            proMin = Integer.parseInt(text_ProductMin.getText());
-            proMax = Integer.parseInt(text_ProductMax.getText());
+            int proId = Integer.parseInt(text_ProductId.getText());
+            String proName = text_ProductName.getText();
+            Double proPrice = Double.parseDouble(text_ProductPrice.getText());
+            int proInv = Integer.parseInt(text_ProductInv.getText());
+            int proMin = Integer.parseInt(text_ProductMin.getText());
+            int proMax = Integer.parseInt(text_ProductMax.getText());
 
             Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
-            ArrayList<Part> assParts = new ArrayList<>();
-            assParts.addAll(tableView_AssociatedPart.getItems());
+            ArrayList<Part> assParts = new ArrayList<>(tableView_AssociatedPart.getItems());
             for (Part assPart : assParts) {
                 addPro.addAssociatedPart(assPart);
             }

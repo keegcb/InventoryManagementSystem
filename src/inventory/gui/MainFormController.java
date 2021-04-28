@@ -6,7 +6,6 @@ import inventory.Part;
 import inventory.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -63,9 +62,10 @@ public class MainFormController {
     }
 
     private boolean isValidSelection(int option){
-        switch (option){
-            case 1: Part modPartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
-                if(modPartAttempt != null){
+        switch (option) {
+            case 1 -> {
+                Part modPartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
+                if (modPartAttempt != null) {
                     validSelect = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -75,9 +75,10 @@ public class MainFormController {
                     notValid.showAndWait();
                     validSelect = false;
                 }
-                break;
-            case 2: Part removePartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
-                if(removePartAttempt != null){
+            }
+            case 2 -> {
+                Part removePartAttempt = tableView_Parts.getSelectionModel().getSelectedItem();
+                if (removePartAttempt != null) {
                     validSelect = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -87,9 +88,10 @@ public class MainFormController {
                     notValid.showAndWait();
                     validSelect = false;
                 }
-                break;
-            case 3: Product modProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
-                if(modProAttempt != null){
+            }
+            case 3 -> {
+                Product modProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
+                if (modProAttempt != null) {
                     validSelect = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -99,9 +101,10 @@ public class MainFormController {
                     notValid.showAndWait();
                     validSelect = false;
                 }
-                break;
-            case 4: Product removeProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
-                if(removeProAttempt != null){
+            }
+            case 4 -> {
+                Product removeProAttempt = tableView_Products.getSelectionModel().getSelectedItem();
+                if (removeProAttempt != null) {
                     validSelect = true;
                 } else {
                     Alert notValid = new Alert(Alert.AlertType.WARNING);
@@ -111,18 +114,18 @@ public class MainFormController {
                     notValid.showAndWait();
                     validSelect = false;
                 }
-                break;
+            }
         }
         return validSelect;
     }
 
     @FXML
-    void handleAddPart(ActionEvent click) throws IOException {
+    void handleAddPart() throws IOException {
         InventoryManagementSystem.openAddParts();
     }
 
     @FXML
-    void handleSearchParts(ActionEvent search) {
+    void handleSearchParts() {
         try{
             partSearch.clear();
         } catch (NullPointerException e){
@@ -170,7 +173,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleModPart(ActionEvent click) throws IOException{
+    void handleModPart() throws IOException{
         if(isValidSelection(1)){
             Part modPart = tableView_Parts.getSelectionModel().getSelectedItem();
             index = getAllParts().indexOf(modPart);
@@ -181,7 +184,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleDeletePart(ActionEvent click) throws IOException {
+    void handleDeletePart() {
         if(isValidSelection(2)){
             Part selectedPart = tableView_Parts.getSelectionModel().getSelectedItem();
             if (selectedPart != null) {
@@ -191,7 +194,18 @@ public class MainFormController {
                         "Click OK if you would like to proceed.");
                 Optional<ButtonType> selected = deleteWarn.showAndWait();
                 if (selected.get() == ButtonType.OK) {
-                    deletePart(selectedPart);
+                    boolean deleted = deletePart(selectedPart);
+                    Alert deleteConfirm;
+                    if(deleted){
+                        deleteConfirm = new Alert(Alert.AlertType.INFORMATION);
+                        deleteConfirm.setTitle("Part Deleted");
+                        deleteConfirm.setHeaderText("The selected part was deleted from the parts list.");
+                    } else {
+                        deleteConfirm = new Alert(Alert.AlertType.WARNING);
+                        deleteConfirm.setTitle("Part Not Deleted");
+                        deleteConfirm.setHeaderText("The selected part was not deleted from the parts list.");
+                    }
+                    deleteConfirm.showAndWait();
                     tableView_Parts.setItems(getAllParts());
                 }
             }
@@ -199,7 +213,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleAddPro(ActionEvent click) throws IOException {
+    void handleAddPro() throws IOException {
         InventoryManagementSystem.openAddPro();
     }
 
@@ -252,7 +266,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleModPro(ActionEvent click) throws IOException{
+    void handleModPro() throws IOException{
         if(isValidSelection(3)) {
             Product modPro = tableView_Products.getSelectionModel().getSelectedItem();
             index = getAllProducts().indexOf(modPro);
@@ -263,7 +277,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleDeleteProduct(ActionEvent click) throws IOException {
+    void handleDeleteProduct() {
         if(isValidSelection(4)){
             Product selectedPro = tableView_Products.getSelectionModel().getSelectedItem();
             if (selectedPro != null){
@@ -274,7 +288,18 @@ public class MainFormController {
                             "Click OK if you would like to proceed.");
                     Optional<ButtonType> selected = deleteWarn.showAndWait();
                     if (selected.get() == ButtonType.OK) {
-                        deleteProduct(selectedPro);
+                        boolean deleted = deleteProduct(selectedPro);
+                        Alert deleteConfirm;
+                        if(deleted){
+                            deleteConfirm = new Alert(Alert.AlertType.INFORMATION);
+                            deleteConfirm.setTitle("Product Deleted");
+                            deleteConfirm.setHeaderText("The selected product was deleted from the products list.");
+                        } else {
+                            deleteConfirm = new Alert(Alert.AlertType.WARNING);
+                            deleteConfirm.setTitle("Product Not Deleted");
+                            deleteConfirm.setHeaderText("The selected product was not deleted from the products list.");
+                        }
+                        deleteConfirm.showAndWait();
                         tableView_Products.setItems(getAllProducts());
                     }
                 } else {
@@ -289,7 +314,7 @@ public class MainFormController {
     }
 
     @FXML
-    void handleExit(ActionEvent click) throws IOException {
+    void handleExit() {
         Alert exitWarn = new Alert(Alert.AlertType.CONFIRMATION);
         exitWarn.setTitle("Exit");
         exitWarn.setTitle("Close Inventory Management?");

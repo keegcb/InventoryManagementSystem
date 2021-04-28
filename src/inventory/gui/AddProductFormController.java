@@ -16,15 +16,9 @@ import java.util.Optional;
 
 public class AddProductFormController {
 
-    private int proId;
-    private String proName;
-    private Double proPrice;
-    private int proInv;
-    private int proMin;
-    private int proMax;
     private Stage proStage;
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
-    private ObservableList<Part> associatedPart = FXCollections.observableArrayList();
+    private final ObservableList<Part> associatedPart = FXCollections.observableArrayList();
     private static boolean validPart = false;
 
     @FXML
@@ -125,31 +119,33 @@ public class AddProductFormController {
     }
 
     private boolean isValidSelection(int option){
-        switch (option){
-            case 1: Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
-                    if(addAttempt != null){
-                        validPart = true;
-                    } else {
-                        Alert notValid = new Alert(Alert.AlertType.WARNING);
-                        notValid.setTitle("Warning");
-                        notValid.setHeaderText("A valid part has not been selected.");
-                        notValid.setContentText("Please select a valid part from the list to be added.");
-                        notValid.showAndWait();
-                        validPart = false;
-                    }
-                    break;
-            case 2: Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
-                    if(removeAttempt != null){
-                        validPart = true;
-                    } else {
-                        Alert notValid = new Alert(Alert.AlertType.WARNING);
-                        notValid.setTitle("Warning");
-                        notValid.setHeaderText("A valid part has not been selected.");
-                        notValid.setContentText("Please select a valid part from the list to be removed.");
-                        notValid.showAndWait();
-                        validPart = false;
-                    }
-                    break;
+        switch (option) {
+            case 1 -> {
+                Part addAttempt = tableView_PartData.getSelectionModel().getSelectedItem();
+                if (addAttempt != null) {
+                    validPart = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be added.");
+                    notValid.showAndWait();
+                    validPart = false;
+                }
+            }
+            case 2 -> {
+                Part removeAttempt = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
+                if (removeAttempt != null) {
+                    validPart = true;
+                } else {
+                    Alert notValid = new Alert(Alert.AlertType.WARNING);
+                    notValid.setTitle("Warning");
+                    notValid.setHeaderText("A valid part has not been selected.");
+                    notValid.setContentText("Please select a valid part from the list to be removed.");
+                    notValid.showAndWait();
+                    validPart = false;
+                }
+            }
         }
         return validPart;
     }
@@ -251,7 +247,7 @@ public class AddProductFormController {
     }
 
     @FXML
-    private void handleDeleteAssPart() throws IOException{
+    private void handleDeleteAssPart() {
         if (isValidSelection(2)){
             Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
             if (selectedPart != null){
@@ -271,18 +267,17 @@ public class AddProductFormController {
     }
 
     @FXML
-    private void handleSavePro() throws IOException {
+    private void handleSavePro() {
         if (validPro()){
-            proId = Integer.parseInt(text_ProductId.getText());
-            proName = text_ProductName.getText();
-            proPrice = Double.parseDouble(text_ProductPrice.getText());
-            proInv = Integer.parseInt(text_ProductInv.getText());
-            proMin = Integer.parseInt(text_ProductMin.getText());
-            proMax = Integer.parseInt(text_ProductMax.getText());
+            int proId = Integer.parseInt(text_ProductId.getText());
+            String proName = text_ProductName.getText();
+            Double proPrice = Double.parseDouble(text_ProductPrice.getText());
+            int proInv = Integer.parseInt(text_ProductInv.getText());
+            int proMin = Integer.parseInt(text_ProductMin.getText());
+            int proMax = Integer.parseInt(text_ProductMax.getText());
 
             Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
-            ArrayList<Part> assParts = new ArrayList<>();
-            assParts.addAll(tableView_AssociatedPart.getItems());
+            ArrayList<Part> assParts = new ArrayList<>(tableView_AssociatedPart.getItems());
             for (Part assPart : assParts) {
                 addPro.addAssociatedPart(assPart);
             }

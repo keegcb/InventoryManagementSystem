@@ -31,7 +31,7 @@ public class InventoryManagementSystem extends Application {
         launch(args);
     }
 
-    public static void openAddParts() throws IOException {
+    public static void openAddParts() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/AddPartForm.fxml")));
@@ -52,7 +52,7 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
-    public static void openModParts(Part modPart) throws IOException {
+    public static void openModParts(Part modPart) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/ModifyPartForm.fxml")));
@@ -74,7 +74,7 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
-    public static void openAddPro() throws IOException {
+    public static void openAddPro() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/AddProductForm.fxml")));
@@ -95,7 +95,7 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
-    public static void openModPro(Product modPro) throws IOException{
+    public static void openModPro(Product modPro) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Objects.requireNonNull(InventoryManagementSystem.class.getResource("/inventory/gui/ModifyProductForm.fxml")));

@@ -10,13 +10,6 @@ import javafx.stage.Stage;
 public class AddPartFormController {
 
     private int addPartId;
-    private String addPartName;
-    private double addPartPrice;
-    private int addPartInv;
-    private int addPartMin;
-    private int addPartMax;
-    private int addMachineID;
-    private String addCompany;
     private Stage partStage;
 
     @FXML
@@ -173,19 +166,19 @@ public class AddPartFormController {
     @FXML
     private void handleSave(){
         if (validPart()){
-            addPartName = textField_AddPartName.getText();
-            addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
-            addPartInv = Integer.parseInt(textField_AddPartInv.getText());
-            addPartMin = Integer.parseInt(textField_AddPartMin.getText());
-            addPartMax = Integer.parseInt(textField_AddPartMax.getText());
+            String addPartName = textField_AddPartName.getText();
+            double addPartPrice = Double.parseDouble(textField_AddPartPrice.getText());
+            int addPartInv = Integer.parseInt(textField_AddPartInv.getText());
+            int addPartMin = Integer.parseInt(textField_AddPartMin.getText());
+            int addPartMax = Integer.parseInt(textField_AddPartMax.getText());
             if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddInHouse)){
-                addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
+                int addMachineID = Integer.parseInt(textField_AddPartMachineCompany.getText());
                 InHouse inHouse = new InHouse
                         (addPartId, addPartName, addPartPrice, addPartInv, addPartMin, addPartMax, addMachineID);
                 Inventory.addPart(inHouse);
             }
             if (this.toggleGroup_AddPart.getSelectedToggle().equals(radio_AddOutsourced)){
-                addCompany = textField_AddPartMachineCompany.getText();
+                String addCompany = textField_AddPartMachineCompany.getText();
                 Outsourced outsourced = new Outsourced
                         (addPartId, addPartName, addPartPrice, addPartInv, addPartMax, addPartMin, addCompany);
                 Inventory.addPart(outsourced);
