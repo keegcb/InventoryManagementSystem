@@ -123,7 +123,11 @@ public class MainFormController {
 
     @FXML
     void handleSearchParts(ActionEvent search) {
-        partSearch.clear();
+        try{
+            partSearch.clear();
+        } catch (NullPointerException e){
+            System.out.println("couldn't clear the list since it doesn't exist");
+        }
 
         if (searchParts.getText().isEmpty()) {
             if (!tableView_Parts.getItems().equals(Inventory.getAllParts())){
@@ -136,6 +140,8 @@ public class MainFormController {
                     searchParts.clear();
                     partSearch.add(idPart);
                     tableView_Parts.setItems(partSearch);
+                } else {
+                    tableView_Parts.setItems(Inventory.getAllParts());
                 }
             } catch (NumberFormatException e) {
                 String searchName = searchParts.getText();
@@ -145,10 +151,11 @@ public class MainFormController {
                 if (partSearch == null){
                     Alert noPart = new Alert(Alert.AlertType.INFORMATION);
                     noPart.setTitle("No Part Found");
-                    noPart.setHeaderText("No Part Found");
+                    noPart.setHeaderText("Part Name Not Found");
                     noPart.setContentText("A part with the name " + searchName + " could not be found in the list.\n" +
                             "Please make sure that the name you have entered is a valid name from the parts list.");
                     noPart.showAndWait();
+                    tableView_Parts.setItems(Inventory.getAllParts());
                 } else {
                     tableView_Parts.setItems(partSearch);
                 }
@@ -192,7 +199,11 @@ public class MainFormController {
 
     @FXML
     void handleSearchPro() {
-        productSearch.clear();
+        try{
+            productSearch.clear();
+        } catch (NullPointerException e){
+            System.out.println("couldn't clear the list since it doesn't exist");
+        }
 
         if (searchProducts.getText().isEmpty()) {
             if (!tableView_Products.getItems().equals(Inventory.getAllProducts())){
@@ -205,6 +216,8 @@ public class MainFormController {
                     searchProducts.clear();
                     productSearch.add(idPro);
                     tableView_Products.setItems(productSearch);
+                } else {
+                    tableView_Products.setItems(Inventory.getAllProducts());
                 }
             } catch (NumberFormatException e) {
                 String searchName = searchProducts.getText();
@@ -218,6 +231,7 @@ public class MainFormController {
                     noPro.setContentText("A product with matching the search term " + searchName + " was not found in the list.\n" +
                             "Please make sure that the name you have entered is a valid name from the product list.");
                     noPro.showAndWait();
+                    tableView_Products.setItems(Inventory.getAllProducts());
                 } else {
                     tableView_Products.setItems(productSearch);
                 }

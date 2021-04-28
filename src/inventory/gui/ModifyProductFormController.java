@@ -100,7 +100,11 @@ public class ModifyProductFormController {
 
     @FXML
     private void handleModProSearchPart(){
-        searchPart.clear();
+        try{
+            searchPart.clear();
+        } catch (NullPointerException e){
+            System.out.println("couldn't clear the list since it doesn't exist");
+        }
 
         if (searchField_Parts.getText().isEmpty()) {
             if (!tableView_PartData.getItems().equals(Inventory.getAllParts())){
@@ -113,6 +117,8 @@ public class ModifyProductFormController {
                     searchField_Parts.clear();
                     searchPart.add(idPart);
                     tableView_PartData.setItems(searchPart);
+                } else {
+                    tableView_PartData.setItems(Inventory.getAllParts());
                 }
             } catch (NumberFormatException e) {
                 String searchName = searchField_Parts.getText();
@@ -126,6 +132,7 @@ public class ModifyProductFormController {
                     noPart.setContentText("A part with the name " + searchName + " could not be found in the list.\n" +
                             "Please make sure that the name you have entered is a valid name from the parts list.");
                     noPart.showAndWait();
+                    tableView_PartData.setItems(Inventory.getAllParts());
                 } else {
                     tableView_PartData.setItems(searchPart);
                 }
