@@ -35,11 +35,6 @@ public class Inventory {
         if (partMatch) {
             return allParts.get(index);
         } else {
-            Alert noId = new Alert(Alert.AlertType.INFORMATION);
-            noId.setTitle("No Part Found");
-            noId.setHeaderText("Part ID Not Found");
-            noId.setContentText("A part with the specified ID could not be found in the list.\n" +
-                    " Please make sure that the ID you have entered is a valid ID from the parts list.");
             System.out.printf("A part with ID %d could not be found.\n", partId);
             return null;
         }
@@ -59,11 +54,6 @@ public class Inventory {
         if (productMatch) {
             return allProducts.get(index);
         } else {
-            Alert noId = new Alert(Alert.AlertType.INFORMATION);
-            noId.setTitle("No Product Found");
-            noId.setHeaderText("Product ID Not Found");
-            noId.setContentText("A product with the specified ID could not be found in the list.\n" +
-                    "Please make sure that the ID you have entered is a valid ID from the product list.");
             System.out.printf("A part with ID %d could not be found.\n", productId);
             return null;
         }

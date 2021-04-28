@@ -141,6 +141,12 @@ public class MainFormController {
                     partSearch.add(idPart);
                     tableView_Parts.setItems(partSearch);
                 } else {
+                    Alert noId = new Alert(Alert.AlertType.INFORMATION);
+                    noId.setTitle("No Part Found");
+                    noId.setHeaderText("Part ID Not Found");
+                    noId.setContentText("A part with the specified ID could not be found in the list.\n" +
+                            " Please make sure that the ID you have entered is a valid ID from the parts list.");
+                    noId.showAndWait();
                     tableView_Parts.setItems(Inventory.getAllParts());
                 }
             } catch (NumberFormatException e) {
@@ -217,6 +223,12 @@ public class MainFormController {
                     productSearch.add(idPro);
                     tableView_Products.setItems(productSearch);
                 } else {
+                    Alert noId = new Alert(Alert.AlertType.INFORMATION);
+                    noId.setTitle("No Product Found");
+                    noId.setHeaderText("Product ID Not Found");
+                    noId.setContentText("A product with the specified ID could not be found in the list.\n" +
+                            "Please make sure that the ID you have entered is a valid ID from the product list.");
+                    noId.showAndWait();
                     tableView_Products.setItems(Inventory.getAllProducts());
                 }
             } catch (NumberFormatException e) {
