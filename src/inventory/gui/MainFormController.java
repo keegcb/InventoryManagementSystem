@@ -123,8 +123,12 @@ public class MainFormController {
 
     @FXML
     void handleSearchParts(ActionEvent search) {
+        partSearch.clear();
+
         if (searchParts.getText().isEmpty()) {
-            tableView_Parts.setItems(Inventory.getAllParts());
+            if (!tableView_Parts.getItems().equals(Inventory.getAllParts())){
+                tableView_Parts.setItems(Inventory.getAllParts());
+            }
         } else {
             try {
                 Part idPart = Inventory.lookupPart(Integer.parseInt(searchParts.getText()));
@@ -134,8 +138,19 @@ public class MainFormController {
                     tableView_Parts.setItems(partSearch);
                 }
             } catch (NumberFormatException e) {
-                if (Inventory.lookupPart(searchParts.getText()) != null) {
-                    tableView_Parts.setItems(Inventory.lookupPart(searchParts.getText()));
+                String searchName = searchParts.getText();
+                partSearch = Inventory.lookupPart(searchName);
+                searchParts.clear();
+
+                if (partSearch == null){
+                    Alert noPart = new Alert(Alert.AlertType.INFORMATION);
+                    noPart.setTitle("No Part Found");
+                    noPart.setHeaderText("No Part Found");
+                    noPart.setContentText("A part with the name " + searchName + " could not be found in the list.\n" +
+                            "Please make sure that the name you have entered is a valid name from the parts list.");
+                    noPart.showAndWait();
+                } else {
+                    tableView_Parts.setItems(partSearch);
                 }
             }
         }
@@ -164,6 +179,7 @@ public class MainFormController {
                 Optional<ButtonType> selected = deleteWarn.showAndWait();
                 if (selected.get() == ButtonType.OK) {
                     deletePart(selectedPart);
+                    tableView_Parts.setItems(getAllParts());
                 }
             }
         }
@@ -176,8 +192,12 @@ public class MainFormController {
 
     @FXML
     void handleSearchPro() {
+        productSearch.clear();
+
         if (searchProducts.getText().isEmpty()) {
-            tableView_Products.setItems(Inventory.getAllProducts());
+            if (!tableView_Products.getItems().equals(Inventory.getAllProducts())){
+                tableView_Products.setItems(Inventory.getAllProducts());
+            }
         } else {
             try {
                 Product idPro = Inventory.lookupProduct(Integer.parseInt(searchProducts.getText()));
@@ -187,8 +207,19 @@ public class MainFormController {
                     tableView_Products.setItems(productSearch);
                 }
             } catch (NumberFormatException e) {
-                if (Inventory.lookupProduct(searchProducts.getText()) != null) {
-                    tableView_Products.setItems(Inventory.lookupProduct(searchProducts.getText()));
+                String searchName = searchProducts.getText();
+                productSearch = Inventory.lookupProduct(searchName);
+                searchProducts.clear();
+
+                if (productSearch == null){
+                    Alert noPro = new Alert(Alert.AlertType.INFORMATION);
+                    noPro.setTitle("No Product Found");
+                    noPro.setHeaderText("No Product Found");
+                    noPro.setContentText("A product with matching the search term " + searchName + " was not found in the list.\n" +
+                            "Please make sure that the name you have entered is a valid name from the product list.");
+                    noPro.showAndWait();
+                } else {
+                    tableView_Products.setItems(productSearch);
                 }
             }
         }
@@ -218,6 +249,7 @@ public class MainFormController {
                     Optional<ButtonType> selected = deleteWarn.showAndWait();
                     if (selected.get() == ButtonType.OK) {
                         deleteProduct(selectedPro);
+                        tableView_Products.setItems(getAllProducts());
                     }
                 } else {
                     Alert hasParts = new Alert(Alert.AlertType.WARNING);

@@ -2,6 +2,7 @@ package inventory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 public class Inventory {
 
@@ -9,6 +10,8 @@ public class Inventory {
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
     private static int partIDNumber = 100;
     private static int productIDNumber = 0;
+    private static ObservableList<Part> searchPartName = FXCollections.observableArrayList();
+    private static ObservableList<Product> searchProName = FXCollections.observableArrayList();
 
     public static void addPart(Part newPart){
         allParts.add(newPart);
@@ -61,15 +64,14 @@ public class Inventory {
         int index = 0;
 
         for (Part currentPart : allParts) {
-            if (currentPart.getName().contentEquals(partName)) {
+            if (currentPart.getName().contains(partName)) {
+                searchPartName.add(currentPart);
                 partMatch = true;
-                break;
             }
         }
         if (partMatch) {
-            return allParts;
+            return searchPartName;
         } else {
-            System.out.printf("A part with the name %s could not be found in the list.\n", partName);
             return null;
         }
     }
@@ -78,15 +80,14 @@ public class Inventory {
         boolean productMatch = false;
 
         for (Product currentProduct : allProducts) {
-            if (currentProduct.getName().equalsIgnoreCase(productName)) {
+            if (currentProduct.getName().contains(productName)) {
+                searchProName.add(currentProduct);
                 productMatch = true;
-                break;
             }
         }
         if (productMatch) {
             return allProducts;
         } else {
-            System.out.printf("A Product with the name %s could not be found in the list.\n", productName);
             return null;
         }
     }

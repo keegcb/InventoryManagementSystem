@@ -100,33 +100,34 @@ public class ModifyProductFormController {
 
     @FXML
     private void handleModProSearchPart(){
-        if (searchField_Parts.getText().isEmpty()){
-            tableView_PartData.setItems(Inventory.getAllParts());
+        searchPart.clear();
+
+        if (searchField_Parts.getText().isEmpty()) {
+            if (!tableView_PartData.getItems().equals(Inventory.getAllParts())){
+                tableView_PartData.setItems(Inventory.getAllParts());
+            }
         } else {
             try {
                 Part idPart = Inventory.lookupPart(Integer.parseInt(searchField_Parts.getText()));
                 if (idPart != null) {
-                    searchPart.clear();
+                    searchField_Parts.clear();
                     searchPart.add(idPart);
                     tableView_PartData.setItems(searchPart);
-                } else if (idPart == null) {
-                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
-                    noMatch.setTitle("Error");
-                    noMatch.setHeaderText("No Matches");
-                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
-                            "Please make sure you have entered a valid Part ID or Name.");
-                    noMatch.showAndWait();
                 }
             } catch (NumberFormatException e) {
-                if (Inventory.lookupPart(searchField_Parts.getText()) != null) {
-                    tableView_PartData.setItems(Inventory.lookupPart(searchField_Parts.getText()));
+                String searchName = searchField_Parts.getText();
+                searchPart = Inventory.lookupPart(searchName);
+                searchField_Parts.clear();
+
+                if (searchPart == null){
+                    Alert noPart = new Alert(Alert.AlertType.INFORMATION);
+                    noPart.setTitle("No Part Found");
+                    noPart.setHeaderText("No Part Found");
+                    noPart.setContentText("A part with the name " + searchName + " could not be found in the list.\n" +
+                            "Please make sure that the name you have entered is a valid name from the parts list.");
+                    noPart.showAndWait();
                 } else {
-                    Alert noMatch = new Alert(Alert.AlertType.ERROR);
-                    noMatch.setTitle("Error");
-                    noMatch.setHeaderText("No Matches");
-                    noMatch.setContentText("A part could not be found matching the ID or Name provided.\n" +
-                            "Please make sure you have entered a valid Part ID or Name.");
-                    noMatch.showAndWait();
+                    tableView_PartData.setItems(searchPart);
                 }
             }
         }
