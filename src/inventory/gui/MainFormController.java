@@ -9,11 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.io.IOException;
 import java.util.Optional;
-
 import static inventory.Inventory.*;
 
+/**
+ * class MainFormController.java
+ * Acts as controller and validation for the Main Form UI.
+ * Allows the addition/removal/modification of Parts and Products objects with their associated Inventory lists.
+ */
 public class MainFormController {
 
     private static int index;
@@ -46,6 +49,10 @@ public class MainFormController {
     @FXML
     private TableColumn<Product, Double> col_ProductPrice;
 
+    /**
+     * Initializes the main form by setting cell column properties for both the parts and products table.
+     * Also sets the table items using getAllParts and getAllProducts.
+     */
     @FXML
     private void initialize(){
         col_PartID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -61,6 +68,12 @@ public class MainFormController {
         tableView_Products.setItems(Inventory.getAllProducts());
     }
 
+    /**
+     * Verifies if a valid part or product is selected from their respective tables before committing add or remove action.
+     * Warning message displays if there are no valid parts or products selected from the tables.
+     * @param option Integer value for switch statement to determine the calling method
+     * @return True if there is a valid selected part, false if there is no valid selection
+     */
     private boolean isValidSelection(int option){
         switch (option) {
             case 1 -> {
@@ -119,11 +132,18 @@ public class MainFormController {
         return validSelect;
     }
 
+    /**
+     * Opens the Add Part Form when the add button for the parts table is clicked.
+     */
     @FXML
-    void handleAddPart() throws IOException {
+    void handleAddPart() {
         InventoryManagementSystem.openAddParts();
     }
 
+    /**
+     * Searches parts list for a part with a matching numerical ID value, or for a matching/partially matching name.
+     * Results of the search are displayed in the parts table, or a message displays if a matching part is not found.
+     */
     @FXML
     void handleSearchParts() {
         try{
@@ -172,8 +192,11 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Opens the Modify Part Form when the modify button for the parts table is clicked.
+     */
     @FXML
-    void handleModPart() throws IOException{
+    void handleModPart() {
         if(isValidSelection(1)){
             Part modPart = tableView_Parts.getSelectionModel().getSelectedItem();
             index = getAllParts().indexOf(modPart);
@@ -183,6 +206,11 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Removes selected part from the parts list and parts table.
+     * Confirmation message is displayed before and after the part is deleted.
+     * A warning message appears if a part was not deleted.
+     */
     @FXML
     void handleDeletePart() {
         if(isValidSelection(2)){
@@ -212,11 +240,18 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Opens the Add Product Form when the add button for the products table is clicked.
+     */
     @FXML
-    void handleAddPro() throws IOException {
+    void handleAddPro() {
         InventoryManagementSystem.openAddPro();
     }
 
+    /**
+     * Searches products list for a products with a matching numerical ID value, or for a matching/partially matching name.
+     * Results of the search are displayed in the products table, or a message displays if a matching product is not found.
+     */
     @FXML
     void handleSearchPro() {
         try{
@@ -265,8 +300,11 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Opens the Modify Products Form when the modify button for the products table is clicked.
+     */
     @FXML
-    void handleModPro() throws IOException{
+    void handleModPro() {
         if(isValidSelection(3)) {
             Product modPro = tableView_Products.getSelectionModel().getSelectedItem();
             index = getAllProducts().indexOf(modPro);
@@ -276,6 +314,11 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Removes selected product from the products list and products table.
+     * Confirmation message is displayed before and after the product is deleted.
+     * A warning message appears if a product was not deleted.
+     */
     @FXML
     void handleDeleteProduct() {
         if(isValidSelection(4)){
@@ -313,6 +356,10 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Closes the application when the Exit button is clicked.
+     * A prompt is displayed asking for confirmation that the user would like to close the app.
+     */
     @FXML
     void handleExit() {
         Alert exitWarn = new Alert(Alert.AlertType.CONFIRMATION);
@@ -331,6 +378,10 @@ public class MainFormController {
         }
     }
 
+    /**
+     * Gets the index of a selected part or product to be updated/modified.
+     * @return Index of the part or product
+     */
     public static int getIndex() {
         return index;
     }

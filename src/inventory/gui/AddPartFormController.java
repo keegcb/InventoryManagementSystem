@@ -7,6 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+/**
+ * class AddPartFormController.java
+ * Acts as controller and validation for the Add Part Form UI when creating a new part.
+ */
 public class AddPartFormController {
 
     private int addPartId;
@@ -35,6 +39,9 @@ public class AddPartFormController {
     @FXML
     private TextField textField_AddPartMachineCompany;
 
+    /**
+     * Initializes fxml form by setting radio buttons to radio group and generating new Part ID.
+     */
     @FXML
     private void initialize(){
         toggleGroup_AddPart = new ToggleGroup();
@@ -46,10 +53,17 @@ public class AddPartFormController {
         textField_AddPartId.setText(Integer.toString(addPartId));
     }
 
+    /**
+     * Creates Stage to host Add Part UI.
+     * @param partStage Stage to be created
+     */
     public void createAddPartStage(Stage partStage){
         this.partStage = partStage;
     }
 
+    /**
+     * Changes the label for Machine ID & Company Name based on which radio button is selected.
+     */
     public void addPartToggle(){
         if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddInHouse)){
             this.label_AddPartMachineCompany.setText("Machine ID");
@@ -59,6 +73,20 @@ public class AddPartFormController {
         }
     }
 
+    /**
+     * Makes multiple validation checks and displays any issues in alert message before part creation.
+     * Verifies the following:
+     * None of the required fields are empty
+     * Price field is in a number format parsable to Double
+     * Inventory field is in a number format parsable to Integer
+     * Max field is in a number format parsable to Integer
+     * Min field is in a number format parsable to Integer
+     * Inventory value is not greater than maximum
+     * Inventory value is not less than minimum
+     * Minimum value is less than maximum
+     * Machine ID field is in a number format parsable to Integer
+     * @return True if no issues are found, false if issues are found
+     */
     private boolean validPart(){
         boolean valid = true;
         boolean stockSet = true;
@@ -163,6 +191,10 @@ public class AddPartFormController {
         return valid;
     }
 
+    /**
+     * Creates a new part object with the supplied values when save button is clicked.
+     * Part is then added to the inventory part list and the add part screen is closed.
+     */
     @FXML
     private void handleSave(){
         if (validPart()){
@@ -187,6 +219,9 @@ public class AddPartFormController {
         }
     }
 
+    /**
+     * Closes the Add Part Form when the cancel button is clicked.
+     */
     @FXML
     public void handleCancel(){
         partStage.close();

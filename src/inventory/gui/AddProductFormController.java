@@ -9,11 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * class AddProductFormController.java
+ * Acts as controller and validation for the Add Product Form UI when creating a new product.
+ */
 public class AddProductFormController {
 
     private Stage proStage;
@@ -56,8 +58,16 @@ public class AddProductFormController {
     @FXML
     private TextField text_ProductMin;
 
+    /**
+     * Creates stage to host Add Product UI.
+     * @param addProductStage Stage to be created
+     */
     public void createAddProduct(Stage addProductStage) {this.proStage = addProductStage; }
 
+    /**
+     * Initializes fxml form by generating new Product ID, identifying column cell properties for each table,
+     * and populating table columns for parts table.
+     */
     @FXML
     private void initialize(){
         text_ProductId.setText(Integer.toString(Inventory.nextProductID()));
@@ -76,6 +86,10 @@ public class AddProductFormController {
 
     }
 
+    /**
+     * Searches parts list for a part with a matching numerical ID value, or for a matching/partially matching name.
+     * Results of the search are displayed in the parts table, or a message displays if a matching part is not found.
+     */
     @FXML
     private void handleProSearchPart(){
         try{
@@ -118,6 +132,12 @@ public class AddProductFormController {
         }
     }
 
+    /**
+     * Verifies if a valid part is selected from either part table before committing add or remove action.
+     * Warning message displays if there are no valid parts selected from the tables.
+     * @param option Integer value for switch statement to determine the calling method
+     * @return True if there is a valid selected part, false if there is no valid selection
+     */
     private boolean isValidSelection(int option){
         switch (option) {
             case 1 -> {
@@ -150,6 +170,19 @@ public class AddProductFormController {
         return validPart;
     }
 
+    /**
+     * Makes multiple validation checks and displays any issues in alert message before product creation.
+     * Verifies the following:
+     * None of the required fields are empty
+     * Price field is in a number format parsable to Double
+     * Inventory field is in a number format parsable to Integer
+     * Max field is in a number format parsable to Integer
+     * Min field is in a number format parsable to Integer
+     * Inventory value is not greater than maximum
+     * Inventory value is not less than minimum
+     * Minimum value is less than maximum
+     * @return True if no issues are found, false if issues are found
+     */
     private boolean validPro(){
         boolean valid = true;
         boolean stockSet = true;
@@ -237,6 +270,9 @@ public class AddProductFormController {
         return valid;
     }
 
+    /**
+     * Adds selected part from the parts list to the associated parts list of the product.
+     */
     @FXML
     private void handleProAddPart(){
         if (isValidSelection(1)){
@@ -246,6 +282,9 @@ public class AddProductFormController {
         }
     }
 
+    /**
+     * Removes selected part from the associated parts list of the product.
+     */
     @FXML
     private void handleDeleteAssPart() {
         if (isValidSelection(2)){
@@ -266,6 +305,10 @@ public class AddProductFormController {
         }
     }
 
+    /**
+     * Creates a new product object with the supplied values when save button is clicked.
+     * Product is then added to the inventory product list and the add product screen is closed.
+     */
     @FXML
     private void handleSavePro() {
         if (validPro()){
@@ -287,6 +330,9 @@ public class AddProductFormController {
         }
     }
 
+    /**
+     * Closes the Add Product Form when the cancel button is clicked.
+     */
     @FXML
     private void handleCancel(){
         proStage.close();

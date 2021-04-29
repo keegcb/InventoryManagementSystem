@@ -9,13 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * class ModifyProductFormController.java
+ * Acts as controller and validation for the Modify Product Form UI when editing a product from the inventory.
+ */
 public class ModifyProductFormController {
 
+    private Product selectedProduct;
     private int modIndex;
     private Stage modStage;
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
@@ -57,10 +60,17 @@ public class ModifyProductFormController {
     @FXML
     private TextField text_ProductMin;
 
+    /**
+     * Creates stage to host Add Product UI.
+     * @param modStage Stage to be created
+     */
     public void createModProStage (Stage modStage){
         this.modStage = modStage;
     }
 
+    /**
+     * Initializes fxml form by identifying column cell properties for parts table and populating, and getting index of product being modified.
+     */
     @FXML
     private void initialize(){
         modIndex = MainFormController.getIndex();
@@ -73,6 +83,10 @@ public class ModifyProductFormController {
 
     }
 
+    /**
+     * Sets the property values of product to be modified and populated the associated parts table.
+     * @param selectedPro Product to be modified
+     */
     public void setModPro(Product selectedPro){
         col_AssPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
         col_AssPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -90,6 +104,10 @@ public class ModifyProductFormController {
         text_ProductMin.setText(Integer.toString(selectedPro.getMin()));
     }
 
+    /**
+     * Searches parts list for a part with a matching numerical ID value, or for a matching/partially matching name.
+     * Results of the search are displayed in the parts table, or a message displays if a matching part is not found.
+     */
     @FXML
     private void handleModProSearchPart(){
         try{
@@ -132,6 +150,12 @@ public class ModifyProductFormController {
         }
     }
 
+    /**
+     * Verifies if a valid part is selected from either part table before committing add or remove action.
+     * Warning message displays if there are no valid parts selected from the tables.
+     * @param option Integer value for switch statement to determine the calling method
+     * @return True if there is a valid selected part, false if there is no valid selection
+     */
     private boolean isValidSelection(int option){
         switch (option) {
             case 1 -> {
@@ -164,6 +188,9 @@ public class ModifyProductFormController {
         return validPart;
     }
 
+    /**
+     * Adds selected part from the parts list to the associated parts list of the product.
+     */
     @FXML
     private void handleModProAddPart(){
         if (isValidSelection(1)){
@@ -173,8 +200,11 @@ public class ModifyProductFormController {
         }
     }
 
+    /**
+     * Removes selected part from the associated parts list of the product.
+     */
     @FXML
-    private void handleDeleteModAssPart() throws IOException{
+    private void handleDeleteModAssPart() {
         if (isValidSelection(2)){
             Part selectedPart = tableView_AssociatedPart.getSelectionModel().getSelectedItem();
             if (selectedPart != null){
@@ -193,6 +223,19 @@ public class ModifyProductFormController {
         }
     }
 
+    /**
+     * Makes multiple validation checks and displays any issues in alert message before product creation.
+     * Verifies the following:
+     * None of the required fields are empty
+     * Price field is in a number format parsable to Double
+     * Inventory field is in a number format parsable to Integer
+     * Max field is in a number format parsable to Integer
+     * Min field is in a number format parsable to Integer
+     * Inventory value is not greater than maximum
+     * Inventory value is not less than minimum
+     * Minimum value is less than maximum
+     * @return True if no issues are found, false if issues are found
+     */
     private boolean validModPro(){
         boolean valid = true;
         boolean stockSet = true;
@@ -280,6 +323,10 @@ public class ModifyProductFormController {
         return valid;
     }
 
+    /**
+     * Creates a new product object to replace the product being modified with the supplied values when save button is clicked.
+     * Modified Product is then added to the inventory product list over the original product and the modify product screen is closed.
+     */
     @FXML
     private void handleSaveModPro() {
         if (validModPro()){
@@ -290,7 +337,14 @@ public class ModifyProductFormController {
             int proMin = Integer.parseInt(text_ProductMin.getText());
             int proMax = Integer.parseInt(text_ProductMax.getText());
 
-            Product addPro = new Product(proId, proName, proPrice, proInv, proMin, proMax);
+            Product addPro = new Product();
+            addPro.setId(proId);
+            addPro.setName(proName);
+            addPro.setPrice(proPrice);
+            addPro.setStock(proInv);
+            addPro.setMin(proMin);
+            addPro.setMax(proMax);
+
             ArrayList<Part> assParts = new ArrayList<>(tableView_AssociatedPart.getItems());
             for (Part assPart : assParts) {
                 addPro.addAssociatedPart(assPart);
@@ -301,6 +355,9 @@ public class ModifyProductFormController {
         }
     }
 
+    /**
+     * Closes the Modify Product Form when the cancel button is clicked.
+     */
     @FXML
     private void handleCancel(){
         modStage.close();

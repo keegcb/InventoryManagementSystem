@@ -8,6 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+/**
+ * class ModifyPartFormController.java
+ * Acts as controller and validation for the Modify Part Form UI when editing a part from the inventory.
+ */
 public class ModifyPartFormController {
     private Stage modStage;
     private int modIndex;
@@ -35,10 +39,17 @@ public class ModifyPartFormController {
     @FXML
     private TextField textField_ModMachineCompany;
 
+    /**
+     * Creates stage to host Add Product UI.
+     * @param modStage Stage to be created
+     */
     public void createModPartStage (Stage modStage){
         this.modStage = modStage;
     }
 
+    /**
+     * Initializes fxml form by setting radio buttons to radio group and getting index of the part being modified.
+     */
     @FXML
     private void initialize() {
         modIndex = MainFormController.getIndex();
@@ -47,6 +58,10 @@ public class ModifyPartFormController {
         this.radio_ModOutsourced.setToggleGroup(toggleGroup_ModPart);
     }
 
+    /**
+     * Sets property values to those of the part being modified and identifies selected radio button.
+     * @param selectedPart Part to be modified
+     */
     public void setModPart(Part selectedPart){
         if (selectedPart instanceof InHouse){
             this.radio_ModInHouse.setSelected(true);
@@ -66,6 +81,9 @@ public class ModifyPartFormController {
         textField_ModMin.setText(Integer.toString(selectedPart.getMin()));
     }
 
+    /**
+     * Changes the label for Machine ID & Company Name based on which radio button is selected.
+     */
     public void modPartToggle(){
         if (this.toggleGroup_ModPart.getSelectedToggle().equals(this.radio_ModInHouse)){
             this.label_ModMachineCompany.setText("Machine ID");
@@ -75,6 +93,20 @@ public class ModifyPartFormController {
         }
     }
 
+    /**
+     * Makes multiple validation checks and displays any issues in alert message before part creation.
+     * Verifies the following:
+     * None of the required fields are empty
+     * Price field is in a number format parsable to Double
+     * Inventory field is in a number format parsable to Integer
+     * Max field is in a number format parsable to Integer
+     * Min field is in a number format parsable to Integer
+     * Inventory value is not greater than maximum
+     * Inventory value is not less than minimum
+     * Minimum value is less than maximum
+     * Machine ID field is in a number format parsable to Integer
+     * @return True if no issues are found, false if issues are found
+     */
     private boolean validModPart(){
         boolean valid = true;
         boolean stockSet = true;
@@ -179,6 +211,10 @@ public class ModifyPartFormController {
         return valid;
     }
 
+    /**
+     * Creates a new part object to replace the one being modified, with the supplied values when save button is clicked.
+     * Part is then added to the inventory part list at the index of the original part and the modify part screen is closed.
+     */
     @FXML
     private void handleModSave(){
         if (validModPart()){
@@ -209,6 +245,9 @@ public class ModifyPartFormController {
         }
     }
 
+    /**
+     * Closes the Add Part Form when the cancel button is clicked.
+     */
     @FXML
     private void handleCancelMod(){
         modStage.close();

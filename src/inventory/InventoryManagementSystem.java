@@ -7,16 +7,24 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * class InventoryManagementSystem.java
+ * Simulates interconnected system of inventory and hosts Stages for UI to be called.
+ */
 public class InventoryManagementSystem extends Application {
 
     private static Stage mainStage;
 
+    /**
+     * Sets stage to host UI after program launch.
+     * @param primaryStage Stage to be set
+     * @throws IOException Failed to load MainForm.fxml to AnchorPane mainWindow
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws IOException {
         mainStage = primaryStage;
         mainStage.setTitle("Inventory Management System");
         FXMLLoader loader = new FXMLLoader();
@@ -27,10 +35,17 @@ public class InventoryManagementSystem extends Application {
         mainStage.show();
     }
 
+    /**
+     * Main method that starts program.
+     * @param args Arguments for program launch
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Launches AddPartForm.fxml to display UI.
+     */
     public static void openAddParts() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -52,6 +67,10 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
+    /**
+     * Launches ModifyPartForm.fxml to display UI.
+     * @param modPart Part to be modified
+     */
     public static void openModParts(Part modPart) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -74,6 +93,9 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
+    /**
+     * Launches AddProductForm.fxml to display UI.
+     */
     public static void openAddPro() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -95,6 +117,10 @@ public class InventoryManagementSystem extends Application {
         }
     }
 
+    /**
+     * Launches ModifyProductForm.fxml to display UI.
+     * @param modPro Product to be modified
+     */
     public static void openModPro(Product modPro) {
         try {
             FXMLLoader loader = new FXMLLoader();
