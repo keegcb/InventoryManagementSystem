@@ -6,6 +6,9 @@ package inventory;
  */
 public class InHouse extends Part{
 
+    /**
+     * Machine ID for part.
+     */
     private int machineId;
 
     /**

@@ -18,43 +18,106 @@ import java.util.Optional;
  */
 public class AddProductFormController {
 
+    /**
+     * Stage to display Add Product Form.
+     */
     private Stage proStage;
+    /**
+     * List of parts searched.
+     */
     private ObservableList<Part> searchPart = FXCollections.observableArrayList();
+    /**
+     * List of parts associated with product being modified.
+     */
     private final ObservableList<Part> associatedPart = FXCollections.observableArrayList();
+    /**
+     * Indicates if valid part is selected.
+     */
     private static boolean validPart = false;
 
+    /**
+     * Search field for parts table.
+     */
     @FXML
     private TextField searchField_Parts;
+    /**
+     * Parts Table.
+     */
     @FXML
     private TableView<Part> tableView_PartData;
+    /**
+     * Part ID column.
+     */
     @FXML
     private TableColumn<Part, Integer> col_PartId;
+    /**
+     * Part Name column.
+     */
     @FXML
     private TableColumn<Part, String> col_PartName;
+    /**
+     * Part Inventory column.
+     */
     @FXML
     private TableColumn<Part, Integer> col_PartInv;
+    /**
+     * Part Price column.
+     */
     @FXML
     private TableColumn<Part, Double> col_PartPrice;
+    /**
+     * Associated Parts table.
+     */
     @FXML
     private TableView<Part> tableView_AssociatedPart;
+    /**
+     * Associated Part ID column.
+     */
     @FXML
     private TableColumn<Part, Integer> col_AssPartId;
+    /**
+     * Associated Part Name column.
+     */
     @FXML
     private TableColumn<Part, String> col_AssPartName;
+    /**
+     * Associated Part Inventory column.
+     */
     @FXML
     private TableColumn<Part, Integer> col_AssPartInv;
+    /**
+     * Associated Part Price column.
+     */
     @FXML
     private TableColumn<Part, Double> col_AssPartPrice;
+    /**
+     * Field for Product ID.
+     */
     @FXML
     private TextField text_ProductId;
+    /**
+     * Field for Product Name.
+     */
     @FXML
     private TextField text_ProductName;
+    /**
+     * Field for Product Inventory.
+     */
     @FXML
     private TextField text_ProductInv;
+    /**
+     * Field for Product Price.
+     */
     @FXML
     private TextField text_ProductPrice;
+    /**
+     * Field for Product Maximum stock.
+     */
     @FXML
     private TextField text_ProductMax;
+    /**
+     * Field for Product minimum stock.
+     */
     @FXML
     private TextField text_ProductMin;
 

@@ -13,29 +13,68 @@ import javafx.stage.Stage;
  * Acts as controller and validation for the Modify Part Form UI when editing a part from the inventory.
  */
 public class ModifyPartFormController {
+    /**
+     * Stage to display Modify Part Form.
+     */
     private Stage modStage;
+    /**
+     * Index of part being modified.
+     */
     private int modIndex;
 
+    /**
+     * Indicates part is object type InHouse class.
+     */
     @FXML
     private RadioButton radio_ModInHouse;
+    /**
+     * Indicates part is object type Outsourced class.
+     */
     @FXML
     private RadioButton radio_ModOutsourced;
+    /**
+     * Toggle Group for the InHouse and Outsourced radio buttons.
+     */
     @FXML
     private ToggleGroup toggleGroup_ModPart;
+    /**
+     * Field to input Part ID.
+     */
     @FXML
     private TextField textField_ModId;
+    /**
+     * Field to input Part Name.
+     */
     @FXML
     private TextField textField_ModName;
+    /**
+     * Field to input Part Inventory.
+     */
     @FXML
     private TextField textField_ModInv;
+    /**
+     * Field to input Part Price.
+     */
     @FXML
     private TextField textField_ModPrice;
+    /**
+     * Field to input Part Maximum stock.
+     */
     @FXML
     private TextField textField_ModMax;
+    /**
+     * Field to input Part Minimum stock.
+     */
     @FXML
     private TextField textField_ModMin;
+    /**
+     * Label showing Machine ID or Company Name.
+     */
     @FXML
     private Label label_ModMachineCompany;
+    /**
+     * Field to input Machine ID or Company Name.
+     */
     @FXML
     private TextField textField_ModMachineCompany;
 
@@ -82,7 +121,7 @@ public class ModifyPartFormController {
     }
 
     /**
-     * Changes the label for Machine ID & Company Name based on which radio button is selected.
+     * Changes the label for Machine ID and Company Name based on which radio button is selected.
      */
     public void modPartToggle(){
         if (this.toggleGroup_ModPart.getSelectedToggle().equals(this.radio_ModInHouse)){

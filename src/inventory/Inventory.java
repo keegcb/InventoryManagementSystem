@@ -9,11 +9,29 @@ import javafx.collections.ObservableList;
  */
 public class Inventory {
 
+    /**
+     * List of all parts in inventory system.
+     */
     private static final ObservableList<Part> allParts = FXCollections.observableArrayList();
+    /**
+     * List of all products in inventory system.
+     */
     private static final ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    /**
+     * Current ID for new part.
+     */
     private static int partIDNumber = 100;
+    /**
+     * Current ID for new product.
+     */
     private static int productIDNumber = 0;
+    /**
+     * List of searched parts.
+     */
     private static final ObservableList<Part> searchPartName = FXCollections.observableArrayList();
+    /**
+     * List of searched products.
+     */
     private static final ObservableList<Product> searchProName = FXCollections.observableArrayList();
 
     /**

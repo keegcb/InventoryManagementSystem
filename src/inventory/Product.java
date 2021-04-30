@@ -1,6 +1,5 @@
 package inventory;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,12 +10,33 @@ import javafx.collections.ObservableList;
 
 public class Product {
 
+    /**
+     * List of associated parts for product.
+     */
     private final ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    /**
+     * ID of product.
+     */
     private int id;
+    /**
+     * Name of product.
+     */
     private String name;
+    /**
+     * Price of product.
+     */
     private double price;
+    /**
+     * Inventory level of product.
+     */
     private int stock;
+    /**
+     * Minimum stock level of product.
+     */
     private int min;
+    /**
+     * Maximum stock level of product.
+     */
     private int max;
 
     /**
@@ -42,8 +62,8 @@ public class Product {
      */
     public Product(){
         this.id = 0;
-        this.name = String.valueOf("");
-        this.price = (double) 0;
+        this.name = "";
+        this.price = 0.0;
         this.stock = 0;
         this.max = 0;
         this.min = 0;

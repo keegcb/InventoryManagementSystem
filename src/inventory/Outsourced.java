@@ -6,6 +6,9 @@ package inventory;
  */
 public class Outsourced extends Part{
 
+    /**
+     * Company Name.
+     */
     private String companyName;
 
     /**

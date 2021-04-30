@@ -13,29 +13,68 @@ import javafx.stage.Stage;
  */
 public class AddPartFormController {
 
+    /**
+     * Part ID for the new part.
+     */
     private int addPartId;
+    /**
+     * Stage for add part form.
+     */
     private Stage partStage;
 
+    /**
+     * Indicates part is object type InHouse class.
+     */
     @FXML
     private RadioButton radio_AddInHouse;
+    /**
+     * Indicates part is object type Outsourced class.
+     */
     @FXML
     private RadioButton radio_AddOutsourced;
+    /**
+     * Toggle Group for the InHouse and Outsourced radio buttons.
+     */
     @FXML
     private ToggleGroup toggleGroup_AddPart;
+    /**
+     * Field to input Part ID.
+     */
     @FXML
     private TextField textField_AddPartId;
+    /**
+     * Field to input Part Name.
+     */
     @FXML
     private TextField textField_AddPartName;
+    /**
+     * Field to input Part Inventory.
+     */
     @FXML
     private TextField textField_AddPartInv;
+    /**
+     * Field to input Part Price.
+     */
     @FXML
     private TextField textField_AddPartPrice;
+    /**
+     * Field to input Part Maximum stock.
+     */
     @FXML
     private TextField textField_AddPartMax;
+    /**
+     * Field to input Part Minimum stock.
+     */
     @FXML
     private TextField textField_AddPartMin;
+    /**
+     * Label showing Machine ID or Company Name.
+     */
     @FXML
     private Label label_AddPartMachineCompany;
+    /**
+     * Field to input Machine ID or Company Name.
+     */
     @FXML
     private TextField textField_AddPartMachineCompany;
 
@@ -62,7 +101,7 @@ public class AddPartFormController {
     }
 
     /**
-     * Changes the label for Machine ID & Company Name based on which radio button is selected.
+     * Changes the label for Machine ID and Company Name based on which radio button is selected.
      */
     public void addPartToggle(){
         if (this.toggleGroup_AddPart.getSelectedToggle().equals(this.radio_AddInHouse)){

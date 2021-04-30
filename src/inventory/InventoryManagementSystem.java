@@ -19,9 +19,14 @@ import java.util.Objects;
  *
  * FUTURE ENHANCEMENT The search functionality is currently case sensitive, this could be changed in the future
  * to allow searches of parts that are different letter case.
+ *
+ * JAVADOC LOCATION: InventoryManagementSystem\javadoc
  */
 public class InventoryManagementSystem extends Application {
 
+    /**
+     * Stage to display application.
+     */
     private static Stage mainStage;
 
     /**

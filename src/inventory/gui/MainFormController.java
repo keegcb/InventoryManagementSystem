@@ -19,33 +19,81 @@ import static inventory.Inventory.*;
  */
 public class MainFormController {
 
+    /**
+     * Index of part or product.
+     */
     private static int index;
+    /**
+     * List of parts searched.
+     */
     private ObservableList<Part> partSearch = FXCollections.observableArrayList();
+    /**
+     * List of products searched.
+     */
     private ObservableList<Product> productSearch = FXCollections.observableArrayList();
+    /**
+     * Indicates if a part or product is selected.
+     */
     private static boolean validSelect;
 
+    /**
+     * Search field for parts table.
+     */
     @FXML
     private TextField searchParts;
+    /**
+     * Parts table.
+     */
     @FXML
     private TableView<Part> tableView_Parts;
+    /**
+     * Column of Parts table for Part ID.
+     */
     @FXML
     private TableColumn<Part, Integer> col_PartID;
+    /**
+     * Column of Parts table for Part Name.
+     */
     @FXML
     private TableColumn<Part, String> col_PartName;
+    /**
+     * Column of Parts table for Part Inventory.
+     */
     @FXML
     private TableColumn<Part, Integer> col_PartInv;
+    /**
+     * Column of Parts table for Part Price.
+     */
     @FXML
     private TableColumn<Part, Double> col_PartPrice;
+    /**
+     * Search field for product table.
+     */
     @FXML
     private TextField searchProducts;
+    /**
+     * Table for product list.
+     */
     @FXML
     private TableView<Product> tableView_Products;
+    /**
+     * Column of products table for Product ID.
+     */
     @FXML
     private TableColumn<Product, Integer> col_ProductID;
+    /**
+     * Column of products table for Product Name.
+     */
     @FXML
     private TableColumn<Product, String> col_ProductName;
+    /**
+     * Column of products table for Product Inventory.
+     */
     @FXML
     private TableColumn<Product, Integer> col_ProductInv;
+    /**
+     * Column of products table for Product Price.
+     */
     @FXML
     private TableColumn<Product, Double> col_ProductPrice;
 
