@@ -143,6 +143,13 @@ public class MainFormController {
     /**
      * Searches parts list for a part with a matching numerical ID value, or for a matching/partially matching name.
      * Results of the search are displayed in the parts table, or a message displays if a matching part is not found.
+     *
+     * RUNTIME ERROR When originally writing the search method it would display the the searched item in the table along
+     * with every other item that was searched previously and the search results would just grow into a long list.
+     * To resolve the problem I added partSearch.clear() to the beginning of the search so it would flush out the results
+     * of any previous search, however, this caused a Null Pointer Reference exception when the user made a search for a non-matching
+     * string name. The table would appear empty and due to the exception the user would no longer be able to see any of the
+     * parts in the list. I resolved this by putting the partSearch.clear() in a try block so it would catch the Null Pointer error.
      */
     @FXML
     void handleSearchParts() {

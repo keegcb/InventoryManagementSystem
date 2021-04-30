@@ -13,6 +13,12 @@ import java.util.Objects;
 /**
  * class InventoryManagementSystem.java
  * Simulates interconnected system of inventory and hosts Stages for UI to be called.
+ *
+ * FUTURE ENHANCEMENT ModifyPartFormController and ModifyProductFormController are both very similar to their add form counterparts,
+ * in the future some of the methods could be moved to the add form controller classes and remove the modify controller class completely.
+ *
+ * FUTURE ENHANCEMENT The search functionality is currently case sensitive, this could be changed in the future
+ * to allow searches of parts that are different letter case.
  */
 public class InventoryManagementSystem extends Application {
 
